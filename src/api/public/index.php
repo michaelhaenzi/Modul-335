@@ -2,7 +2,9 @@
 use Slim\Http\Request as Request;
 use Slim\Http\Response as Response;
 
-require '../vendor/autoload.php';
+
+require 'include.php';
+
 
 #region Config
 $config['displayErrorDetails'] = true;
@@ -23,6 +25,12 @@ $container['logger'] = function ($c) {
     $logger->pushHandler($file_handler);
     return $logger;
 };
+
+$container['helper'] = function () {
+    $helper = new Helper();
+    return $helper;
+};
+
 $container['db'] = function ($c) {
     $db = $c['settings']['db'];
     $pdo = new PDO("mysql:host=" . $db['host'] . ";dbname=" . $db['dbname'], $db['user'], $db['pass']);
@@ -40,15 +48,15 @@ $app->add(function (Request $request, Response $response, callable $next) {
 //        ->withHeader('Access-Control-Allow-Origin', 'http://bmat.localhost, http://verwaltung.bmat.localhost')
 //        ->withHeader('Access-Control-Allow-Headers', 'http://verwaltung.bmat.localhost, X-Requested-With, Content-Type, Accept, Origin, Authorization')
 //        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        ->withHeader('Access-Control-Allow-Origin', 'http://verwaltung.bmat.localhost')
-        ->withHeader('Access-Control-Allow-Headers', 'http://verwaltung.bmat.localhost,  X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Origin', 'http://app.localhost')
+        ->withHeader('Access-Control-Allow-Headers', 'http://app.localhost')
         ->withHeader('Access-Control-Allow-Methods', '*')
         ->withHeader('Access-Control-Allow-Credentials', 'true')
         ->withHeader('Access-Control-Max-Age', '3600');
 });
 $app->add(new \Slim\Middleware\JwtAuthentication([
     "logger" => $container["logger"],
-    "relaxed" => ["localhost", "verwaltung.bmat.localhost", "api.bmat.localhost"],
+    "relaxed" => ["localhost", "app.localhost", "api.localhost"],
     "secret" => EnvironmentHelper::getSecret(),
     "rules" => [
         new \Slim\Middleware\JwtAuthentication\RequestPathRule([
@@ -70,7 +78,7 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
 
 $app->add(new \Slim\Middleware\HttpBasicAuthentication([
     "path" => "/token",
-    "relaxed" => ["localhost", "verwaltung.bmat.localhost", "api.bmat.localhost"],
+    "relaxed" => ["localhost", "app.localhost", "api.localhost"],
     "users" => [
         "1" => "1"
     ], "callback" => function (Request $request, Response $response, $args) {

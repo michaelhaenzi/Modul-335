@@ -1,9 +1,11 @@
-/*  File purposes: DATABASE INITIAL COMMAND
-    Created by: MICHAEL HAENZI
-    Date: 29.11.2016
+/**
+ * Created by PhpStorm.
+ * User: Michael Haenzi
+ * Date: 29.11.2016
+ * Time: 10:32
  */
 
-/*DROP DATABASE horizon;*/
+DROP DATABASE horizon;
 
 CREATE DATABASE IF NOT EXISTS horizon
   DEFAULT CHARACTER SET utf8
@@ -17,11 +19,6 @@ CREATE TABLE IF NOT EXISTS setting (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS `protocol` (
-  id INT NOT NULL,
-  PRIMARY KEY (id)
-);
-
 CREATE TABLE IF NOT EXISTS `user` (
   id INT NOT NULL,
   firstname VARCHAR(20),
@@ -30,6 +27,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   email VARCHAR(30),
   image_path VARCHAR(40),
   status VARCHAR(30),
+  password VARCHAR(40),
+  register VARCHAR(20),
+  saltkey VARCHAR(20),
   setting_id INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (setting_id) REFERENCES setting(id)
@@ -39,44 +39,22 @@ CREATE TABLE IF NOT EXISTS message (
   id INT NOT NULL,
   text VARCHAR(300),
   date TIMESTAMP,
-  user_id INT NOT NULL,
-  protocol_id INT NOT NULL,
+  sender INT NOT NULL,
+  reciever INT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (user_id) REFERENCES `user`(id),
-  FOREIGN KEY (protocol_id) REFERENCES `protocol`(id)
+  FOREIGN KEY (sender) REFERENCES `user`(id),
+  FOREIGN KEY (reciever) REFERENCES `user`(id)
 );
 
-CREATE TABLE IF NOT EXISTS `group` (
+CREATE TABLE IF NOT EXISTS contact (
   id INT NOT NULL,
-  name VARCHAR(30),
-  description VARCHAR(150),
-  image_path  VARCHAR(40),
-  protocol_id INT NOT NULL,
+  user_id1 INT NOT NULL,
+  user_id2 INT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (protocol_id) REFERENCES `protocol`(id)
+  FOREIGN KEY (user_id1) REFERENCES `user`(id),
+  FOREIGN KEY (user_id2) REFERENCES `user`(id)
 );
 
-CREATE TABLE IF NOT EXISTS user_group (
-  id INT NOT NULL,
-  user_id INT NOT NULL,
-  group_id INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (user_id) REFERENCES `user`(id),
-  FOREIGN KEY (group_id) REFERENCES `group`(id)
-);
-
-CREATE TABLE IF NOT EXISTS user_user (
-  id INT NOT NULL,
-  protocol_id INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (protocol_id) REFERENCES `protocol`(id)
-);
-
-CREATE TABLE IF NOT EXISTS user_user_rel (
-  id INT NOT NULL,
-  user_id INT NOT NULL,
-  user_user_id INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (user_id) REFERENCES `user`(id),
-  FOREIGN KEY (user_user_id) REFERENCES user_user(id)
-);
+GRANT ALL PRIVILEGES ON * . * TO 'localAdmin'@'localhost'
+IDENTIFIED BY 'password_admin' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
