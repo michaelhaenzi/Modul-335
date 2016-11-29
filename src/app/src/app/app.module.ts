@@ -2,19 +2,48 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+
+import { CustomHttpService } from './services/custom-http-service/custom-http.service';
+import { AuthService } from './services/auth-service/auth.service';
+import { LoginService } from './services/login-service/login.service';
+
+import { AuthContextService } from './context/auth-context/auth-context.service';
+import { CustomHttpContextService } from './context/http-context/custom-http-context.service';
+import { ChatListComponent } from './pages/chat/list/chat-list.component';
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '**', component: PageNotFoundComponent }
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageNotFoundComponent,
+    HomeComponent,
+    LoginComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    CustomHttpService,
+    AuthService,
+    LoginService,
+    AuthContextService,
+    CustomHttpContextService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
