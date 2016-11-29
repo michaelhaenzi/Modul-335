@@ -6,7 +6,7 @@
  * Time: 14:06
  */
 
-class UserEntity /*implements JsonSerialaizable*/
+class UserEntity implements JsonSerializable
 {
     private $id;
     private $firstname;

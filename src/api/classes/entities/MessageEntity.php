@@ -6,7 +6,7 @@
  * Time: 14:06
  */
 
-class MessageEntity implements JsonSerialaizable
+class MessageEntity implements JsonSerializable
 {
     private $id;
     private $text;

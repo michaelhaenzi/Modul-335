@@ -8,7 +8,7 @@
  */
 
 
-class ContactEntity
+class ContactEntity implements JsonSerializable
 {
     private $id;
     private $user_id1;

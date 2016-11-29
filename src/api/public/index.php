@@ -13,7 +13,7 @@ $config['db']['host'] = EnvironmentHelper::getDBvalues()["host"];
 $config['db']['user'] = EnvironmentHelper::getDBvalues()["user"];
 $config['db']['pass'] = EnvironmentHelper::getDBvalues()["pass"];
 $config['db']['dbname'] = EnvironmentHelper::getDBvalues()["dbname"];
-#endregio
+#endregion
 
 $app = new \Slim\App(["settings" => $config]);
 
@@ -45,9 +45,9 @@ $app->add(function (Request $request, Response $response, callable $next) {
     /** @var $response Response */
     $response = $next($request, $response);
     return $response
-//        ->withHeader('Access-Control-Allow-Origin', 'http://bmat.localhost, http://verwaltung.bmat.localhost')
-//        ->withHeader('Access-Control-Allow-Headers', 'http://verwaltung.bmat.localhost, X-Requested-With, Content-Type, Accept, Origin, Authorization')
-//        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        ->withHeader('Access-Control-Allow-Origin', 'http://app.localhost')
+        ->withHeader('Access-Control-Allow-Headers', 'http://app.localhost, X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
         ->withHeader('Access-Control-Allow-Origin', 'http://app.localhost')
         ->withHeader('Access-Control-Allow-Headers', 'http://app.localhost')
         ->withHeader('Access-Control-Allow-Methods', '*')
@@ -61,7 +61,7 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
     "rules" => [
         new \Slim\Middleware\JwtAuthentication\RequestPathRule([
             "path" => "/",
-            "passthrough" => ["/token", "/ping", "/customer/", "/fixedappointment/contractnumber/", "/fixedappointment/new"]
+            "passthrough" => ["/api/v1.0/auth", "/api/v1.0/register"]
         ])
     ],
     "callback" => function (Request $request, Response $response, $args) use ($container) {
@@ -91,12 +91,10 @@ $app->add(new \Slim\Middleware\HttpBasicAuthentication([
         return $response->withoutHeader("WWW-Authenticate")->write(json_encode($data, JSON_UNESCAPED_SLASHES));
     }
 ]));
-
 #endregion
-$app->get('/hello/{name}', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $this->logger->addInfo("hello - $name");
-    $response->getBody()->write("Hello, $name");
-    return $response;
-});
+
+#region Routes
+require 'routes.php';
+#endregion
+
 $app->run();

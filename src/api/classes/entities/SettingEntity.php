@@ -6,7 +6,7 @@
  * Time: 14:06
  */
 
-class SettingEntity implements JsonSerialaizable
+class SettingEntity implements JsonSerializable
 {
     private $id;
     private $notification;
