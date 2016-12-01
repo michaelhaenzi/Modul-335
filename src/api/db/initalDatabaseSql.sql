@@ -19,6 +19,11 @@ CREATE TABLE IF NOT EXISTS setting (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS chat (
+  id INT NOT NULL,
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE IF NOT EXISTS `user` (
   id INT NOT NULL,
   firstname VARCHAR(20),
@@ -39,11 +44,11 @@ CREATE TABLE IF NOT EXISTS message (
   id INT NOT NULL,
   text VARCHAR(300),
   date TIMESTAMP,
-  sender INT NOT NULL,
-  reciever INT NOT NULL,
+  chat_id INT NOT NULL,
+  user_id INT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (sender) REFERENCES `user`(id),
-  FOREIGN KEY (reciever) REFERENCES `user`(id)
+  FOREIGN KEY (chat_id) REFERENCES chat(id),
+  FOREIGN KEY (user_id) REFERENCES `user`(id)
 );
 
 CREATE TABLE IF NOT EXISTS contact (
@@ -53,6 +58,15 @@ CREATE TABLE IF NOT EXISTS contact (
   PRIMARY KEY (id),
   FOREIGN KEY (user_id1) REFERENCES `user`(id),
   FOREIGN KEY (user_id2) REFERENCES `user`(id)
+);
+
+CREATE TABLE IF NOT EXISTS user_chat (
+  id INT NOT NULL,
+  chat_id INT NOT NULL,
+  user_id INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (chat_id) REFERENCES chat(id),
+  FOREIGN KEY (user_id) REFERENCES `user`(id)
 );
 
 GRANT ALL PRIVILEGES ON * . * TO 'localAdmin'@'localhost'
