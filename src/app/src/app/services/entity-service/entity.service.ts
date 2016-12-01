@@ -2,12 +2,10 @@ import {RestList} from "../../class/rest-list";
 import {CustomHttpService} from "../custom-http-service/custom-http.service";
 import {Observable} from "rxjs";
 import {RestObject} from "../../class/rest-object";
-import {Injectable} from "@angular/core";
 
-@Injectable()
-export class EntityService {
+export abstract class EntityService {
 
-  protected MOUNDPOINT: string = "";
+  protected abstract MOUNDPOINT: string = "";
 
   constructor(protected http: CustomHttpService) { }
 
