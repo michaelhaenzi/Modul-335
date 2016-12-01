@@ -16,6 +16,7 @@ import { LoginService } from './services/login-service/login.service';
 import { AuthContextService } from './context/auth-context/auth-context.service';
 import { CustomHttpContextService } from './context/http-context/custom-http-context.service';
 import { ChatListComponent } from './pages/chat/list/chat-list.component';
+import { ChatDetailComponent } from './pages/chat/detail/chat-detail.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     HomeComponent,
     LoginComponent,
-    ChatListComponent
+    ChatListComponent,
+    ChatDetailComponent
   ],
   imports: [
     BrowserModule,

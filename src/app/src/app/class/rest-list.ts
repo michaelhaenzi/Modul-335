@@ -1,5 +1,9 @@
 import {RestObject} from "./rest-object";
 
+/**
+ * Creator: ACN
+ * Date: 1.12.2016
+ */
 export class RestList {
 
     public list: RestObject[] = new Array<RestObject>();
