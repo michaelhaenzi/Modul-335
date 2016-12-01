@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Creator: ACN
+ * Date: 1.12.2016
+ */
 @Injectable()
 export class CustomHttpContextService {
 
@@ -7,6 +11,11 @@ export class CustomHttpContextService {
 
   constructor() { }
 
+  /**
+   * Gibt den Token zurück
+   *
+   * @returns {string}
+   */
   public getToken(): string {
     return ""
   }

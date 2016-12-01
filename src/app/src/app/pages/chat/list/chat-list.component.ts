@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {RestList} from "../../../class/rest-list";
 import {ChatService} from "../../../services/chat-service/chat.service";
 
+/**
+ * Creator: ACN
+ * Date: 1.12.2016
+ */
 @Component({
   selector: 'app-chat-list',
   templateUrl: 'chat-list.component.html',
@@ -19,6 +23,9 @@ export class ChatListComponent implements OnInit {
     ]);*/
   }
 
+  /**
+   * Holt alle Chats von der REST API
+   */
   public getList(): void  {
     this.chatService.getList().map((res: RestList) => this.chatList = res);
   }
