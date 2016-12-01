@@ -35,9 +35,14 @@ export class CustomHttpService {
     return this.http.get(this.httpContext.BASEURL + url, {headers: this.headers}).map(res => new RestObject(res.json()));
   }
 
-  public post(url: string, body: Object): Observable<Response> {
+  public post(url: string, body: Object): Observable<RestObject> {
     this.preRequest();
-    return this.http.post(this.httpContext.BASEURL + url, body, {headers: this.headers});
+    return this.http.post(this.httpContext.BASEURL + url, body, {headers: this.headers}).map(res => new RestObject(res.json()));
+  }
+
+  public put(url: string, body: Object): Observable<RestObject> {
+    this.preRequest();
+    return this.http.put(this.httpContext.BASEURL + url, body, {headers: this.headers}).map(res => new RestObject(res.json()));
   }
 
 }

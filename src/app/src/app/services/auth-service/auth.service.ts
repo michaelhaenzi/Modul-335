@@ -22,11 +22,11 @@ export class AuthService {
   }
 
   public doLogin(form: Object): void {
-    this.http.post("auth", form).subscribe((res: Response) => {
+    /*this.http.post("auth", form).subscribe((res: Response) => {
       console.log("Antwort: ", res.json());
     }, (err) => {
       console.log("Error: ", err);
-    });
+    });*/
   }
 
 }
