@@ -1,21 +1,24 @@
-<nav *ngIf="isLoggedIn" style="width: calc(100vw - 20px); height: 28px; background-color: #f7f7f7; border-bottom: 1px solid #c7c7c7; padding: 10px 10px; margin-bottom: 2px;">
+<nav *ngIf="isLoggedIn" style="width: calc(100vw - 20px); height: 28px; background-color: #f7f7f7; border-bottom: 1px solid #c7c7c7; padding: 10px 10px;">
     <div style="display: block; height: 100%; width: 100%;">
         <div style="display: inline-block; height: 100%; float: left; width: 35px;">
-            <a>
+            <a (click)="openSideMenu()">
                 <span style="color: #f1424b;">M</span>
             </a>
         </div>
-        <div style="display: inline-block; height: 100%; width: calc(100% - 100px);">
+        <div style="display: inline-block; height: 100%; width: calc(100% - 85px);">
             <h4 style="margin: 0;">Titel</h4>
         </div>
-        <div style="display: inline-block; height: 100%; float: right; width: 65px;">
-            <a>
+        <div style="display: inline-block; height: 100%; float: right; width: 50px;">
+            <a style="float: left;">
                 <span style="color: #f1424b;">M</span>
             </a>
-            <a>
+            <a style="float: right;">
                 <span style="color: #f1424b;">M</span>
             </a>
         </div>
     </div>
 </nav>
-<router-outlet></router-outlet>
+<div [hidden]="!sideMenuDisplay" style="position: relative; width: 100vw; height: calc(100vh - 49px); background-color: #c7c7c7">
+
+</div>
+<router-outlet [hidden]="sideMenuDisplay" style="margin-top: 2px;"></router-outlet>

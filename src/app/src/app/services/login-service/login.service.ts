@@ -15,8 +15,8 @@ export class LoginService {
    *
    * @param form
    */
-  public doLogin(form: Object): void {
-    this.authService.doLogin(form);
+  public doLogin(loginBody: any): void {
+    this.authService.doLogin(loginBody);
   }
 
 }

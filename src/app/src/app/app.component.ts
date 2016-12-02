@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 export class AppComponent implements OnInit {
 
   public isLoggedIn: boolean;
+  public sideMenuDisplay: boolean = false;
 
   /**
    * Konstruktor
@@ -18,5 +19,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
+  }
+
+  /**
+   * öffnet das Seiten Menü
+   */
+  public openSideMenu(): void {
+    this.sideMenuDisplay = !this.sideMenuDisplay;
   }
 }

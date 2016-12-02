@@ -26,7 +26,7 @@ export class CustomHttpService implements HttpInterface {
   /**
    * Wird vor der Anfrage ausgeführt
    */
-  public preRequest(): void {
+  private preRequest(): void {
     if(!this.headers.has("Authorization")) {
       this.httpContext.getToken()
           .then((token: string) => {
@@ -35,6 +35,18 @@ export class CustomHttpService implements HttpInterface {
             }
           });
     }
+  }
+
+  /**
+   * setzt die Auth Header
+   *
+   * @returns {Headers}
+   */
+  private preAuth(loginBody: any): Headers {
+    let head: Headers = new Headers();
+    head.append("Content-Type", "application/json");
+    head.append("Authorization", "Basic " + btoa(loginBody.login + ":" + loginBody.password));
+    return head;
   }
 
   /**
@@ -75,6 +87,15 @@ export class CustomHttpService implements HttpInterface {
   public deleteItem(url: string): Observable<RestObject> {
     this.preRequest();
     return this.http.delete(this.httpContext.BASEURL + url, {headers: this.headers}).map((res: Response) => new RestObject(res.json()));
+  }
+
+  /**
+   * Loggt sich bei der REST API ein
+   *
+   * @returns {Observable<R>}
+   */
+  public auth(loginBody: any): Observable<RestObject> {
+    return this.http.post(this.httpContext.BASEURL + "auth", {headers: this.preAuth(loginBody)}).map((res: Response) => new RestObject(res.json()));
   }
 
 }
