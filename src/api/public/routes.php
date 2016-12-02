@@ -87,7 +87,12 @@ $app->group('/api', function () use ($app) {
         });
 
         $app->post('/auth', function (Request $request, Response $response) {
-            return $response->withAddedHeader("Authorization" , getJWTToken());
+            $ipaddress = $request->getAttribute('ip_address');
+            $userMapper = new UserMapper($this->db, $this);
+
+            /**To-Do */
+
+            return $response->withAddedHeader("Authorization" , getJWTToken($ipaddress));
         });
 
         $app->post('/register', function (Request $request, Response $response, array $args) {

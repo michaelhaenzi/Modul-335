@@ -46,7 +46,7 @@ $app->add(function (Request $request, Response $response, callable $next) {
     $response = $next($request, $response);
     return $response
         ->withHeader('Access-Control-Allow-Origin', 'http://app.localhost')
-        ->withHeader('Access-Control-Allow-Headers', 'http://app.localhost, X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
         ->withHeader('Access-Control-Allow-Credentials', 'true')
         ->withHeader('Access-Control-Max-Age', '3600');
