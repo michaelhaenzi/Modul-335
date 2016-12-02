@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {RestList} from "../../class/rest-list";
 import {RestObject} from "../../class/rest-object";
 import 'rxjs/Rx';
-import {HttpInterface} from "../../interface/http-interface";
+import {HttpInterface} from "../../interface/service/http-interface";
 
 /**
  * Creator: ACN
@@ -27,12 +27,14 @@ export class CustomHttpService implements HttpInterface {
    * Wird vor der Anfrage ausgeführt
    */
   public preRequest(): void {
-    this.httpContext.getToken()
-      .then((token: string) => {
-        if(token != "" || !this.headers.has("Authorization")) {
-          this.headers.append("Authorization", "Bearer" + token);
-        }
-    });
+    if(!this.headers.has("Authorization")) {
+      this.httpContext.getToken()
+          .then((token: string) => {
+            if(token != "") {
+              this.headers.append("Authorization", "Bearer" + token);
+            }
+          });
+    }
   }
 
   /**

@@ -1,8 +1,10 @@
+import {RestObjectInterface} from "../interface/class/rest-object-interface";
+
 /**
  * Creator: ACN
  * Date: 1.12.2016
  */
-export class RestObject {
+export class RestObject implements RestObjectInterface {
 
     public raw: Object = {};
 
@@ -14,31 +16,23 @@ export class RestObject {
     }
 
     /**
-     * Gibt Property zurück
-     *
-     * @param property
+     * {@inheritDoc}
      */
     public display(property: string): string {
         return this.raw[property].toString();
     }
 
     /**
-     * Gibt ein inneres Objekt als RestObject zurück
-     *
-     * @param property
-     * @returns {RestObject}
+     * {@inheritDoc}
      */
     public get(property): RestObject {
         return new RestObject(this.raw[property]);
     }
 
     /**
-     * Findet heraus, ob es die Property besitzt
-     *
-     * @param property
-     * @returns {boolean}
+     * {@inheritDoc}
      */
-    public has(property: string): any {
+    public has(property: string): boolean {
         return this.raw.hasOwnProperty(property);
     }
 }

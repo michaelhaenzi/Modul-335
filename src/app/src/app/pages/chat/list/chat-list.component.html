@@ -1,4 +1,4 @@
-<!--div-- *ngFor="let chat of chatList.list">
+<!--div-- *ngFor="let chat of chatList.items">
   <h3 *ngIf="chat.has('id')">{{chat.display('id')}}</h3>
 </div-->
 <div class="horizon-chat-row">
@@ -6,10 +6,10 @@
     <div style="height: 100%; width: 60px; display: inline-block; float: left; margin-right: 10px;">
       <img style="height: 80%; width: 80%; padding: 10%; border-radius: 50%;" src="https://pbs.twimg.com/profile_images/774297805116407808/NhxKlL4B.jpg" />
     </div>
-    <div style="display: inline-block; height: 59px; width: 280px; border-bottom: 1px solid #c7c7c7;">
+    <div style="display: inline-block; height: 59px; width: calc(100% - 120px); border-bottom: 1px solid #c7c7c7;">
       <div style="height: 50%; margin: 0; line-height: 40px;"><h4 style="margin: 0;">Username
         <span style="font-size: 12px; float: right; line-height: 20px;">4h ago</span></h4></div>
-      <div style="height: 50%; margin: 0;"><span>Hey was läuft?</span></div>
+      <div style="height: 50%; margin: 0;"><span>Hey was läuft ?</span></div>
     </div>
     <div style="display: inline-block; float: right; height: 59px; width: 40px; padding-left: 10px; border-bottom: 1px solid #c7c7c7;">
       <i>i</i>

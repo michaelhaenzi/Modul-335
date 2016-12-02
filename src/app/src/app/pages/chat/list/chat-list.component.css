@@ -1,24 +1,5 @@
 .horizon-chat-row {
     height: 60px;
-    width: 400px;
+    width: 100%;
     display: block;
-}
-.horizon-chat-row > a > .horizon-chat-profile-image {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    display: inline;
-    float: left;
-}
-.horizon-chat-row > a > .horizon-chat-protocoll {
-    display: inline;
-    height: 100px;
-    width: 250px;
-    padding-left: 25px;
-}
-.horizon-chat-protocoll > .horizon-chat-profile-name {
-    margin: 0px 5px;
-}
-.horizon-chat-protocoll > .horizon-chat-protocoll-message {
-
 }

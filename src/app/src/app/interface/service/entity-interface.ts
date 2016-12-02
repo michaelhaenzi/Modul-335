@@ -1,12 +1,17 @@
-import {RestList} from "../class/rest-list";
+import {RestList} from "../../class/rest-list";
 import {Observable} from "rxjs";
-import {RestObject} from "../class/rest-object";
+import {RestObject} from "../../class/rest-object";
 
 /**
  * Creator: ACN
  * Date: 1.12.2016
  */
 export interface EntityServiceInterface {
+
+    /**
+     * MOUNTPOINT URL
+     */
+    MOUNTPOINT: string;
 
     /**
      * Holt eine Liste von der REST API / je nach MOUNTPOINT

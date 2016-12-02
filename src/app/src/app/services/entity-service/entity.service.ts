@@ -3,7 +3,7 @@ import {CustomHttpService} from "../custom-http-service/custom-http.service";
 import {Observable} from "rxjs";
 import {RestObject} from "../../class/rest-object";
 import 'rxjs/Rx';
-import {EntityServiceInterface} from "../../interface/entity-interface";
+import {EntityServiceInterface} from "../../interface/service/entity-interface";
 
 /**
  * Creator: ACN
@@ -11,7 +11,7 @@ import {EntityServiceInterface} from "../../interface/entity-interface";
  */
 export abstract class EntityService implements EntityServiceInterface {
 
-  protected abstract MOUNTPOINT: string = "";
+  public abstract MOUNTPOINT: string = "";
 
   /**
    * Konstruktor
