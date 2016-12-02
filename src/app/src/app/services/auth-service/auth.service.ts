@@ -32,7 +32,7 @@ export class AuthService {
    * @param form
    */
   public doLogin(form: Object): void {
-    this.http.post(this.MOUNTPOINT, form).subscribe((res: RestObject) => {
+    this.http.postItem(this.MOUNTPOINT, form).subscribe((res: RestObject) => {
       console.log("Antwort: ", res);
     }, (err) => {
       console.log("Error: ", err);

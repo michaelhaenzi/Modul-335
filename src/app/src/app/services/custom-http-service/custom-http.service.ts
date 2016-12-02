@@ -5,13 +5,14 @@ import {Observable} from "rxjs";
 import {RestList} from "../../class/rest-list";
 import {RestObject} from "../../class/rest-object";
 import 'rxjs/Rx';
+import {HttpInterface} from "../../interface/http-interface";
 
 /**
  * Creator: ACN
  * Date: 1.12.2016
  */
 @Injectable()
-export class CustomHttpService {
+export class CustomHttpService implements HttpInterface {
 
   private headers: Headers = new Headers();
 
@@ -35,50 +36,43 @@ export class CustomHttpService {
   }
 
   /**
-   * Holt Daten von der REST API und macht eine RestList
-   *
-   * @param url
-   * @returns {Observable<R>}
+   * {@inheritDoc}
    */
   public getList(url: string): Observable<RestList> {
     this.preRequest();
-    console.log("getListX:" + this.httpContext.BASEURL + url);
-    return this.http.get(this.httpContext.BASEURL + url, {headers: this.headers}).map(res => new RestList(res.json()));
+    return this.http.get(this.httpContext.BASEURL + url, {headers: this.headers}).map((res: Response) => new RestList(res.json()));
   }
 
   /**
-   * Holt Daten von der REST API und macht eine RestObject
-   *
-   * @param url
-   * @returns {Observable<R>}
+   * {@inheritDoc}
    */
   public getSingle(url: string): Observable<RestObject> {
     this.preRequest();
-    return this.http.get(this.httpContext.BASEURL + url, {headers: this.headers}).map(res => new RestObject(res.json()));
+    return this.http.get(this.httpContext.BASEURL + url, {headers: this.headers}).map((res: Response) => new RestObject(res.json()));
   }
 
   /**
-   * Postet ein Object an die REST API
-   *
-   * @param url
-   * @param body
-   * @returns {Observable<R>}
+   * {@inheritDoc}
    */
-  public post(url: string, body: Object): Observable<RestObject> {
+  public postItem(url: string, body: Object): Observable<RestObject> {
     this.preRequest();
-    return this.http.post(this.httpContext.BASEURL + url, body, {headers: this.headers}).map(res => new RestObject(res.json()));
+    return this.http.post(this.httpContext.BASEURL + url, body, {headers: this.headers}).map((res: Response) => new RestObject(res.json()));
   }
 
   /**
-   * Updatet ein Object auf der REST API
-   *
-   * @param url
-   * @param body
-   * @returns {Observable<R>}
+   * {@inheritDoc}
    */
-  public put(url: string, body: Object): Observable<RestObject> {
+  public putItem(url: string, body: Object): Observable<RestObject> {
     this.preRequest();
-    return this.http.put(this.httpContext.BASEURL + url, body, {headers: this.headers}).map(res => new RestObject(res.json()));
+    return this.http.put(this.httpContext.BASEURL + url, body, {headers: this.headers}).map((res: Response) => new RestObject(res.json()));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public deleteItem(url: string): Observable<RestObject> {
+    this.preRequest();
+    return this.http.delete(this.httpContext.BASEURL + url, {headers: this.headers}).map((res: Response) => new RestObject(res.json()));
   }
 
 }

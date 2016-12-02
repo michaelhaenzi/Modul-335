@@ -12,7 +12,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { CustomHttpService } from './services/custom-http-service/custom-http.service';
 import { AuthService } from './services/auth-service/auth.service';
 import { LoginService } from './services/login-service/login.service';
-import { ChatService } from './services/chat-service/chat.service';
+import { ChatService } from './services/entity-service/chat-service/chat.service';
 
 import { AuthContextService } from './context/auth-context/auth-context.service';
 import { CustomHttpContextService } from './context/http-context/custom-http-context.service';

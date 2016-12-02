@@ -3,12 +3,13 @@ import {CustomHttpService} from "../custom-http-service/custom-http.service";
 import {Observable} from "rxjs";
 import {RestObject} from "../../class/rest-object";
 import 'rxjs/Rx';
+import {EntityServiceInterface} from "../../interface/entity-interface";
 
 /**
  * Creator: ACN
  * Date: 1.12.2016
  */
-export abstract class EntityService {
+export abstract class EntityService implements EntityServiceInterface {
 
   protected abstract MOUNTPOINT: string = "";
 
@@ -18,45 +19,38 @@ export abstract class EntityService {
   constructor(protected http: CustomHttpService) { }
 
   /**
-   * Holt eine Liste von der REST API / je nach MOUNTPOINT
-   *
-   * @returns {Observable<RestList>}
+   * {@inheritDoc}
    */
   public getList(): Observable<RestList> {
-    console.log("getList: " + this.MOUNTPOINT);
     return this.http.getList(this.MOUNTPOINT);
   }
 
   /**
-   * Holt ein einzelnes Object von der REST API / je nach MOUNTPOINT
-   *
-   * @param id
-   * @returns {Observable<RestObject>}
+   * {@inheritDoc}
    */
   public getSingle(id: number): Observable<RestObject> {
     return this.http.getSingle(this.MOUNTPOINT + id.toString());
   }
 
   /**
-   * Postet ein Object an die REST API / je nach MOUNTPOINT
-   *
-   * @param id
-   * @param body
-   * @returns {Observable<RestObject>}
+   * {@inheritDoc}
    */
   public postItem(id: number, body: Object): Observable<RestObject> {
-    return this.http.post(this.MOUNTPOINT + id.toString(), body);
+    return this.http.postItem(this.MOUNTPOINT + id.toString(), body);
   }
 
   /**
-   * Updatet ein Object auf der REST API / je nach MOUNTPOINT
-   *
-   * @param id
-   * @param body
-   * @returns {Observable<RestObject>}
+   * {@inheritDoc}
    */
   public putItem(id: number, body: Object): Observable<RestObject> {
-    return this.http.put(this.MOUNTPOINT + id.toString(), body);
+    return this.http.putItem(this.MOUNTPOINT + id.toString(), body);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public deleteItem(id: number): Observable<RestObject> {
+    return this.http.deleteItem(this.MOUNTPOINT + id.toString());
   }
 
 }

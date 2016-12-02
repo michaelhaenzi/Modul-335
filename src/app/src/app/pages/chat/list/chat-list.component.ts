@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RestList} from "../../../class/rest-list";
-import {ChatService} from "../../../services/chat-service/chat.service";
+import {ChatService} from "../../../services/entity-service/chat-service/chat.service";
 import 'rxjs/Rx';
 import {Http} from "@angular/http";
 
@@ -31,7 +31,6 @@ export class ChatListComponent implements OnInit {
    */
   public getList(): void  {
     //this.chatService.getList().subscribe((res: RestList) => this.chatList = res);
-    //console.log(this.chatList);
   }
 
 }

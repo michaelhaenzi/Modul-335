@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ChatService} from "../../../services/chat-service/chat.service";
+import {ChatService} from "../../../services/entity-service/chat-service/chat.service";
 import {RestObject} from "../../../class/rest-object";
 
 /**
