@@ -2,6 +2,7 @@ import {RestList} from "../../class/rest-list";
 import {CustomHttpService} from "../custom-http-service/custom-http.service";
 import {Observable} from "rxjs";
 import {RestObject} from "../../class/rest-object";
+import 'rxjs/Rx';
 
 /**
  * Creator: ACN
@@ -22,6 +23,7 @@ export abstract class EntityService {
    * @returns {Observable<RestList>}
    */
   public getList(): Observable<RestList> {
+    console.log("getList: " + this.MOUNTPOINT);
     return this.http.getList(this.MOUNTPOINT);
   }
 

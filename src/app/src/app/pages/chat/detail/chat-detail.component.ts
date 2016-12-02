@@ -18,13 +18,14 @@ export class ChatDetailComponent implements OnInit {
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
+    //this.getSingle();
   }
 
   /**
    * Holt den Chat von der REST API
    */
   public getSingle(): void  {
-    this.chatService.getSingle(1).map((res: RestObject) => this.restObject = res);
+    this.chatService.getSingle(1).subscribe((res: RestObject) => this.restObject = res);
   }
 
 }

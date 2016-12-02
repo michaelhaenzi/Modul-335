@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {CustomHttpService} from "../custom-http-service/custom-http.service";
+import {RestObject} from "../../class/rest-object";
 
 /**
  * Creator: ACN
@@ -9,6 +10,7 @@ import {CustomHttpService} from "../custom-http-service/custom-http.service";
 export class AuthService {
 
   private loggedIn: boolean = true;
+  private MOUNTPOINT: string = "auth";
 
   /**
    * Konstruktor
@@ -30,11 +32,11 @@ export class AuthService {
    * @param form
    */
   public doLogin(form: Object): void {
-    /*this.http.post("auth", form).subscribe((res: Response) => {
-      console.log("Antwort: ", res.json());
+    this.http.post(this.MOUNTPOINT, form).subscribe((res: RestObject) => {
+      console.log("Antwort: ", res);
     }, (err) => {
       console.log("Error: ", err);
-    });*/
+    });
   }
 
 }

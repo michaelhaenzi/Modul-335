@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers} from "@angular/http";
+import {Http, Headers, Response} from "@angular/http";
 import {CustomHttpContextService} from "../../context/http-context/custom-http-context.service";
 import {Observable} from "rxjs";
 import {RestList} from "../../class/rest-list";
 import {RestObject} from "../../class/rest-object";
+import 'rxjs/Rx';
 
 /**
  * Creator: ACN
@@ -25,10 +26,12 @@ export class CustomHttpService {
    * Wird vor der Anfrage ausgeführt
    */
   public preRequest(): void {
-    let token = this.httpContext.getToken();
-    if(token != "" || !this.headers.has("Authorization")) {
-      this.headers.append("Authorization", "Bearer" + token);
-    }
+    this.httpContext.getToken()
+      .then((token: string) => {
+        if(token != "" || !this.headers.has("Authorization")) {
+          this.headers.append("Authorization", "Bearer" + token);
+        }
+    });
   }
 
   /**
@@ -39,6 +42,7 @@ export class CustomHttpService {
    */
   public getList(url: string): Observable<RestList> {
     this.preRequest();
+    console.log("getListX:" + this.httpContext.BASEURL + url);
     return this.http.get(this.httpContext.BASEURL + url, {headers: this.headers}).map(res => new RestList(res.json()));
   }
 

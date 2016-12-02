@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CustomHttpContextService {
 
-  public BASEURL: string = "http://api.localhost/api/v1/";
+  public BASEURL: string = "http://api.localhost/api/v1.0/";
 
   constructor() { }
 
@@ -16,8 +16,10 @@ export class CustomHttpContextService {
    *
    * @returns {string}
    */
-  public getToken(): string {
-    return ""
+  public getToken(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      resolve("");
+    });
   }
 
 }

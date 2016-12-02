@@ -9,7 +9,7 @@ import {CustomHttpService} from "../custom-http-service/custom-http.service";
 @Injectable()
 export class ChatService extends EntityService {
 
-  protected MOUNTPOINT: string = "/chats/";
+  protected MOUNTPOINT: string = "chats";
 
   /**
    * Konstruktor
