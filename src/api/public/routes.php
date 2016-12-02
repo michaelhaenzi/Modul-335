@@ -80,18 +80,17 @@ $app->group('/api', function () use ($app) {
 
 
         $app->post('/auth', function (Request $request, Response $response) {
-
+            return $response->withAddedHeader("Authorization" , getJWTToken());
         });
 
-        $app->post('/register', function (Request $request, Response $response) {
+        $app->post('/register', function (Request $request, Response $response, array $args) {
             try {
                 $setting = new SettingEntity([]);
                 $settingMapper = new SettingMapper($this->db, $this);
                 $settingId = $settingMapper->save($setting);
 
-                $requestBody = $request->getParsedBody();
-                $requestBody["password"] = getSaltedPassword($requestBody);
-                $requestBody["saltkey"] = getSaltedString();
+                $requestBody = $request->getParams();
+                $requestBody["password"] = PasswordHelper::getSaltedPassword($requestBody);
                 $user = new UserEntity($requestBody);
                 $userMapper = new UserMapper($this->db, $this);
                 $userMapper->save($user, $settingId);

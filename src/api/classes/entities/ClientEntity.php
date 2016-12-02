@@ -16,7 +16,6 @@ class UserEntity implements JsonSerializable
     private $file_path;
     private $status;
     private $password;
-    private $register;
     private $setting_id;
 
     public function __construct(array $data)
@@ -24,15 +23,25 @@ class UserEntity implements JsonSerializable
         if (isset($data['id'])) {
             $this->id = $data['id'];
         }
+
         $this->firstname = $data['firstname'];
         $this->lastname = $data['lastname'];
-        $this->phonenumber = $data['phonenumber'];
-        $this->email = $data['email'];
-        $this->file_path = $data['file_path'];
-        $this->status = $data['status'];
+        if (isset($data['phonenumber'])) {
+            $this->phonenumber = $data['phonenumber'];
+        }
+        if (isset($data['email'])) {
+            $this->email = $data['email'];
+        }
+        if (isset($data['file_path'])) {
+            $this->file_path = $data['file_path'];
+        }
+        if (isset($data['status'])) {
+            $this->status = $data['status'];
+        }
+        if (isset($data['setting_id'])) {
+            $this->setting_id = $data['setting_id'];
+        }
         $this->password = $data['password'];
-        $this->register = $data['register'];;
-        $this->setting_id = $data['setting_id'];
     }
 
     /**
@@ -97,14 +106,6 @@ class UserEntity implements JsonSerializable
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRegister()
-    {
-        return $this->register;
     }
 
     /**

@@ -11,8 +11,8 @@ class UserMapper extends Mapper {
 
     public function getUserByEmail($email)
     {
-        $sql = "SELECT id, firstname, lastname, email, phonenumber, user_password AS password
-                FROM user
+        $sql = "SELECT id, firstname, lastname, email, phonenumber, password
+                FROM `user`
                 WHERE email = :email";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute(["email" => $email]);
@@ -20,14 +20,14 @@ class UserMapper extends Mapper {
         if ($result && !is_bool($data)) {
             return new UserEntity($data);
         } else {
-            throw new NotFoundException();
+            throw new Exception();
         }
     }
 
     public function getUserByPhonenumber($phonenumber)
     {
-        $sql = "SELECT id, firstname, lastname, email, phonenumber, user_password AS password
-                FROM user
+        $sql = "SELECT id, firstname, lastname, email, phonenumber, password
+                FROM `user`
                 WHERE phonenumber = :phonenumber";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute(["phonenumber" => $phonenumber]);
@@ -35,7 +35,7 @@ class UserMapper extends Mapper {
         if ($result && !is_bool($data)) {
             return new UserEntity($data);
         } else {
-            throw new \Slim\Exception\NotFoundException();
+            throw new Exception();
         }
     }
 
@@ -54,13 +54,17 @@ class UserMapper extends Mapper {
     }
 
     public function  getUsers() {
-        $sql = "SELECT id, firstname, lastname, phonenumber, email, image_path, status
+        $sql = "SELECT id, firstname, lastname, phonenumber, email, image_path, status, setting_id
                 FROM `user`";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute();
-        $data = $stmt->fetch();
+        $data = $stmt->fetchAll();
         if ($result && !is_bool($data)) {
-            return new UserEntity($data);
+            $array = array();
+            foreach ($data as $user) {
+                array_push($array, new UserEntity($user));
+            }
+            return $array;
         } else {
             return null;
         }

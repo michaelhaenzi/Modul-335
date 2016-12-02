@@ -14,26 +14,25 @@ CREATE DATABASE IF NOT EXISTS horizon
 USE horizon;
 
 CREATE TABLE IF NOT EXISTS setting (
-  id INT NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   notification boolean,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS chat (
-  id INT NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS `user` (
-  id INT NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   firstname VARCHAR(20),
   lastname VARCHAR(20),
   phonenumber INT,
   email VARCHAR(30),
   image_path VARCHAR(40),
   status VARCHAR(30),
-  password VARCHAR(40),
-  register VARCHAR(20),
+  password VARCHAR(100),
   saltkey VARCHAR(20),
   setting_id INT NOT NULL,
   PRIMARY KEY (id),
@@ -41,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 );
 
 CREATE TABLE IF NOT EXISTS message (
-  id INT NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   text VARCHAR(300),
   date TIMESTAMP,
   chat_id INT NOT NULL,
@@ -52,7 +51,7 @@ CREATE TABLE IF NOT EXISTS message (
 );
 
 CREATE TABLE IF NOT EXISTS contact (
-  id INT NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   user_id1 INT NOT NULL,
   user_id2 INT NOT NULL,
   PRIMARY KEY (id),
@@ -61,7 +60,7 @@ CREATE TABLE IF NOT EXISTS contact (
 );
 
 CREATE TABLE IF NOT EXISTS user_chat (
-  id INT NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   chat_id INT NOT NULL,
   user_id INT NOT NULL,
   PRIMARY KEY (id),

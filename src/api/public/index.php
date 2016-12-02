@@ -77,7 +77,7 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
 ]));
 
 $app->add(new \Slim\Middleware\HttpBasicAuthentication([
-    "path" => "/token",
+    "path" => "/api/". VERSION ."/auth",
     "relaxed" => ["localhost", "app.localhost", "api.localhost"],
     "authenticator" => new AuthenticatorHelper($container),
     "callback" => function (Request $request, Response $response, $args) {
