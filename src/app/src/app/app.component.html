@@ -18,7 +18,7 @@
         </div>
     </div>
 </nav>
-<div [hidden]="!sideMenuDisplay" style="position: relative; width: 100vw; height: calc(100vh - 49px); background-color: #c7c7c7">
+<div [hidden]="!sideMenuDisplay" style="position: absolute; width: 100vw; height: calc(100vh - 49px); background-color: #c7c7c7">
 
 </div>
-<router-outlet [hidden]="sideMenuDisplay" style="margin-top: 2px;"></router-outlet>
+<router-outlet [hidden]="sideMenuDisplay" style="position: absolute; margin-top: 2px;"></router-outlet>
