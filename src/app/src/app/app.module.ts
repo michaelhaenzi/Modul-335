@@ -21,6 +21,8 @@ import { ChatDetailComponent } from './pages/chat/detail/chat-detail.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'chats', component: ChatListComponent },
+  { path: 'chats/:id', component: ChatDetailComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent }
 ];

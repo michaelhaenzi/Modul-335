@@ -1,6 +1,7 @@
 .horizon-chat-row {
     height: 60px;
     width: 400px;
+    display: block;
 }
 .horizon-chat-row > a > .horizon-chat-profile-image {
     height: 100px;
