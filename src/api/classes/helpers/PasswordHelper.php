@@ -6,10 +6,14 @@
 * Time: 11:08
 */
 
-class Helper {
-
+class PasswordHelper {
     public function getSaltedPassword(UserEntity $user) {
-        return hash("sha256", $this->getSaltedString() . $user->getPassword());
+        $options = [
+            'cost' => 11,
+            'salt' => uniqid(mt_rand(), true)
+        ];
+
+        return password_hash($user["password"] . PEPPER, PASSWORD_BCRYPT, array('cost' => 12));
     }
 
     public function getRegisterCode() {
@@ -20,9 +24,5 @@ class Helper {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
-    }
-
-    public function getSaltedString() {
-        return "HU_3rf*FS90nsh%&";
     }
 }

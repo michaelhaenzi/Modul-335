@@ -39,7 +39,7 @@ abstract class EnvironmentHelper
     }
     public static function getSecret()
     {
-        return "sdf45sdf*s4566d%*fsds";
+        return SECRET;
     }
 }
 abstract class  Environment

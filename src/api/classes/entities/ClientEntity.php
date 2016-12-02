@@ -17,7 +17,6 @@ class UserEntity implements JsonSerializable
     private $status;
     private $password;
     private $register;
-    private $saltkey;
     private $setting_id;
 
     public function __construct(array $data)
@@ -32,8 +31,7 @@ class UserEntity implements JsonSerializable
         $this->file_path = $data['file_path'];
         $this->status = $data['status'];
         $this->password = $data['password'];
-        $this->register = $data['register'];
-        $this->saltkey = $data['saltkey'];
+        $this->register = $data['register'];;
         $this->setting_id = $data['setting_id'];
     }
 
@@ -107,14 +105,6 @@ class UserEntity implements JsonSerializable
     public function getRegister()
     {
         return $this->register;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSaltkey()
-    {
-        return $this->saltkey;
     }
 
     /**

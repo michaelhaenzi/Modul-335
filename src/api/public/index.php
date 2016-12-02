@@ -61,7 +61,7 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
     "rules" => [
         new \Slim\Middleware\JwtAuthentication\RequestPathRule([
             "path" => "/",
-            "passthrough" => ["/api/v1.0/auth", "/api/v1.0/register"]
+            "passthrough" => ["/api/". VERSION ."/auth", "/api/". VERSION ."/register"]
         ])
     ],
     "callback" => function (Request $request, Response $response, $args) use ($container) {
@@ -79,9 +79,8 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
 $app->add(new \Slim\Middleware\HttpBasicAuthentication([
     "path" => "/token",
     "relaxed" => ["localhost", "app.localhost", "api.localhost"],
-    "users" => [
-        "1" => "1"
-    ], "callback" => function (Request $request, Response $response, $args) {
+    "authenticator" => new AuthenticatorHelper($container),
+    "callback" => function (Request $request, Response $response, $args) {
         $container["basicAuth"] = $args;
     },
     "error" => function (Request $request, Response $response, $args) {

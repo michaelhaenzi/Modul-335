@@ -16,7 +16,12 @@ class SettingEntity implements JsonSerializable
         if (isset($data['id'])) {
             $this->id = $data['id'];
         }
-        $this->notification = $data['notification'];
+
+        if (isset($data['notification'])) {
+            $this->notification = $data['notification'];
+        } else {
+            $this->notification = 0;
+        }
     }
 
     /**

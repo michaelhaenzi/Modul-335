@@ -10,14 +10,55 @@ use Slim\Http\Request as Request;
 use Slim\Http\Response as Response;
 
 $app->group('/api', function () use ($app) {
-    $app->group('/v1.0', function () use ($app) {
+    $app->group('/' . VERSION, function () use ($app) {
         $app->get('/users', function (Request $request, Response $response) {
+            try {
+                $userMapper = new UserMapper($this->db, $this);
+                $users = $userMapper->getUsers();
+                $response = $response->withJson($users)->withStatus(200);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
+            } catch (Exception $exception) {
+                $this->logger->addError($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
         });
 
-        $app->get('/user/:id', function (Request $request, Response $response) {
+        $app->get('/user/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
+            try {
+                $id = $args["id"];
+                $userMapper = new UserMapper($this->db, $this);
+                $user = $userMapper->getUser($id);
+                $response = $response->withJson($user)->withStatus(200);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
+            } catch (Exception $exception) {
+                $this->logger->addError($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
         });
 
-        $app->delete('/user/:id', function (Request $request, Response $response) {
+        $app->delete('/user/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
+            try {
+                $id = $args["id"];
+                $userMapper = new UserMapper($this->db, $this);
+                $userMapper->deleteUser($id);
+                $response = $response->withStatus(200);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
+            } catch (Exception $exception) {
+                $this->logger->addError($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
         });
 
 
@@ -43,13 +84,24 @@ $app->group('/api', function () use ($app) {
         });
 
         $app->post('/register', function (Request $request, Response $response) {
-            $payload = [
-                "user" => "user",
-                "ip" => "127.0.0.1"
-            ];
-            $secret = EnvironmentHelper::getSecret();
-            $token = JWT::encode($payload, $secret, "HS256");
-            return $response->withAddedHeader("Authorization" , "Bearer $token");
+            try {
+                $setting = new SettingEntity([]);
+                $settingMapper = new SettingMapper($this->db, $this);
+                $settingId = $settingMapper->save($setting);
+
+                $requestBody = $request->getParsedBody();
+                $requestBody["password"] = getSaltedPassword($requestBody);
+                $requestBody["saltkey"] = getSaltedString();
+                $user = new UserEntity($requestBody);
+                $userMapper = new UserMapper($this->db, $this);
+                $userMapper->save($user, $settingId);
+                $response = $response->withAddedHeader("Authorization" , getJWTToken());
+            } catch (Exception $exception) {
+                $this->logger->addCritical($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
         });
     });
 });

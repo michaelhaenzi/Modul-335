@@ -6,14 +6,46 @@
 * Time: 11:15
 */
 
+
 class UserMapper extends Mapper {
+
+    public function getUserByEmail($email)
+    {
+        $sql = "SELECT id, firstname, lastname, email, phonenumber, user_password AS password
+                FROM user
+                WHERE email = :email";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute(["email" => $email]);
+        $data = $stmt->fetch();
+        if ($result && !is_bool($data)) {
+            return new UserEntity($data);
+        } else {
+            throw new NotFoundException();
+        }
+    }
+
+    public function getUserByPhonenumber($phonenumber)
+    {
+        $sql = "SELECT id, firstname, lastname, email, phonenumber, user_password AS password
+                FROM user
+                WHERE phonenumber = :phonenumber";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute(["phonenumber" => $phonenumber]);
+        $data = $stmt->fetch();
+        if ($result && !is_bool($data)) {
+            return new UserEntity($data);
+        } else {
+            throw new \Slim\Exception\NotFoundException();
+        }
+    }
+
     public function getUser($id) {
         $sql = "SELECT id, firstname, lastname, phonenumber, email
                 FROM `user`
                 WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute(["id" => $id]);
-        $data = $result->fetch();
+        $data = $stmt->fetch();
         if ($result && !is_bool($data)) {
             return new UserEntity($data);
         } else {
@@ -26,7 +58,7 @@ class UserMapper extends Mapper {
                 FROM `user`";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute();
-        $data = $result->fetch();
+        $data = $stmt->fetch();
         if ($result && !is_bool($data)) {
             return new UserEntity($data);
         } else {
@@ -34,20 +66,19 @@ class UserMapper extends Mapper {
         }
     }
 
-    public function save(UserEntity $user)
+    public function save(UserEntity $user, $settingId)
     {
         $sql = "INSERT INTO `user`
-            (firstname, lastname, register, password, saltkey) VALUES
-            (:firstname, :lastname, :register, :password, :saltkey)";
+            (firstname, lastname, email, phonenumber, password, setting_id) VALUES
+            (:firstname, :lastname, :email, :phonenumber, :password, :setting_id)";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute([
             "firstname" => $user->getFirstname(),
             "lastname" => $user->getLastname(),
             "email" => $user->getEmail(),
             "phonenumber" => $user->getPhonenumber(),
-            "register" => $this->container->helper->getRegisterCode(),
-            "password" => $this->container->helper->getSaltedPassword($user),
-            "saltkey" => $this->container->helper->getSaltedString()
+            "password" => $user->getPassword(),
+            "setting_id" => $settingId
         ]);
         if (!$result) {
             throw new Exception("could not save record");
