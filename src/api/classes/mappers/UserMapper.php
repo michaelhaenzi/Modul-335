@@ -40,7 +40,7 @@ class UserMapper extends Mapper {
     }
 
     public function getUser($id) {
-        $sql = "SELECT id, firstname, lastname, phonenumber, email
+        $sql = "SELECT id, firstname, lastname, phonenumber, email, image_path, status
                 FROM `user`
                 WHERE id = :id";
         $stmt = $this->db->prepare($sql);
@@ -84,8 +84,11 @@ class UserMapper extends Mapper {
             "password" => $user->getPassword(),
             "setting_id" => $settingId
         ]);
+
         if (!$result) {
             throw new Exception("could not save record");
+        } else {
+            return $this->db->lastInsertId();
         }
     }
 }

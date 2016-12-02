@@ -149,3 +149,6 @@
 [2016-12-02 15:16:46] my_logger.DEBUG: Using token from environment [] []
 [2016-12-02 15:18:33] my_logger.DEBUG: Using token from environment [] []
 [2016-12-02 15:24:06] my_logger.DEBUG: Using token from environment [] []
+[2016-12-02 15:47:13] my_logger.DEBUG: Using token from environment [] []
+[2016-12-02 15:47:22] my_logger.DEBUG: Using token from environment [] []
+[2016-12-02 15:49:57] my_logger.DEBUG: Using token from environment [] []

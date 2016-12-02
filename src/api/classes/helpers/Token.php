@@ -6,10 +6,10 @@
  * Time: 16:30
  */
 
-function getJWTToken () {
+function getJWTToken ($userId, $ipaddress) {
     $payload = [
-        "user" => "user",
-        "ip" => "127.0.0.1"
+        "userId" => $userId,
+        "ip" => $ipaddress
     ];
     $secret = EnvironmentHelper::getSecret();
     $token = JWT::encode($payload, $secret, "HS256");

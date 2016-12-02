@@ -68,7 +68,14 @@ $app->group('/api', function () use ($app) {
         $app->get('/contact/:id', function (Request $request, Response $response) {
         });
 
-        $app->post('/contact/:id', function (Request $request, Response $response) {
+        $app->post('/contact', function (Request $request, Response $response) {
+            try {
+                $requestBody = $request->getParams();
+            } catch (Exception $exception) {
+
+            } finally {
+
+            }
         });
 
 
@@ -76,8 +83,8 @@ $app->group('/api', function () use ($app) {
         });
 
         $app->post('/message', function (Request $request, Response $response) {
-        });
 
+        });
 
         $app->post('/auth', function (Request $request, Response $response) {
             return $response->withAddedHeader("Authorization" , getJWTToken());
@@ -89,12 +96,14 @@ $app->group('/api', function () use ($app) {
                 $settingMapper = new SettingMapper($this->db, $this);
                 $settingId = $settingMapper->save($setting);
 
+                $ipaddress = $request->getAttribute('ip_address');
+
                 $requestBody = $request->getParams();
                 $requestBody["password"] = PasswordHelper::getSaltedPassword($requestBody);
                 $user = new UserEntity($requestBody);
                 $userMapper = new UserMapper($this->db, $this);
-                $userMapper->save($user, $settingId);
-                $response = $response->withAddedHeader("Authorization" , getJWTToken());
+                $userId = $userMapper->save($user, $settingId);
+                $response = $response->withJson($userId)->withAddedHeader("Authorization" , getJWTToken($userId, $ipaddress));
             } catch (Exception $exception) {
                 $this->logger->addCritical($exception);
                 $response = $response->withStatus(500);
