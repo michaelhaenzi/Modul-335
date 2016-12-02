@@ -25,7 +25,7 @@ export class ChatDetailComponent implements OnInit {
    * Holt den Chat von der REST API
    */
   public getSingle(): void  {
-    this.chatService.getSingle(1).subscribe((res: RestObject) => this.restObject = res);
+    //this.chatService.getSingle(1).subscribe((res: RestObject) => this.restObject = res);
   }
 
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {EntityService} from "../entity-service/entity.service";
-import {CustomHttpService} from "../custom-http-service/custom-http.service";
+import {EntityService} from "../entity.service";
+import {CustomHttpService} from "../../custom-http-service/custom-http.service";
 
 /**
  * Creator: ACN
