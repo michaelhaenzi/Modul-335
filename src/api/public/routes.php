@@ -44,6 +44,34 @@ $app->group('/api', function () use ($app) {
             }
         });
 
+        $app->put('/user', function (Request $request, Response $response) {
+            try {
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
+            } catch (Exception $exception) {
+                $this->logger->addError($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
+        });
+
+        $app->put('/setting', function (Request $request, Response $response) {
+            try {
+                $userId = $this->jwt->userId;
+                $notification = $request->getParam("notification");
+                $settingMapper = new SettingMapper($this->db, $this);
+                $settingMapper->update($userId, $notification);
+                $response = $response->withStatus(200);
+            } catch (Exception $exception) {
+                $this->logger->addError($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
+        });
+
 
         $app->get('/contacts', function (Request $request, Response $response) {
             try {

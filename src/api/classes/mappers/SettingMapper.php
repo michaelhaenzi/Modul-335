@@ -22,6 +22,23 @@ class SettingMapper extends Mapper {
         }
     }
 
+    public function update($userId, $notification) {
+        $sql = "SELECT setting_id
+        FROM `user`
+        WHERE id = :userId";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute(["userId" => $userId]);
+        $data = $stmt->fetch();
+        if ($result && !is_bool($data)) {
+            $sql = "UPDATE setting
+            SET notification = :notification
+            WHERE id = :settingId";
+            $stmt = $this->db->prepare($sql);
+            $result = $stmt->execute(["notification" => $notification, "settingId" => $data["setting_id"]]);
+        } else {
+            return null;
+        }
+    }
 
     public function save(SettingEntity $setting)
     {
