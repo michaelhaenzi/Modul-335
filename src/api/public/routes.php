@@ -63,18 +63,38 @@ $app->group('/api', function () use ($app) {
 
 
         $app->get('/contacts', function (Request $request, Response $response) {
-        });
-
-        $app->get('/contact/:id', function (Request $request, Response $response) {
+            try {
+                $userId = $this->jwt->userId;
+                $contactMapper = new ContactMapper($this->db, $this);
+                $contacts = $contactMapper->getContacts($userId);
+                $response = $response->withJson($contacts)->withStatus(200);
+            } catch (Exception $exception) {
+                $this->logger->addError($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
         });
 
         $app->post('/contact', function (Request $request, Response $response) {
             try {
-                $requestBody = $request->getParams();
+                $userId1 = $this->jwt->userId;
+                $userId2 = $request->getParams()["id"];
+
+
+                $userMapper = new UserMapper($this->db, $this);
+                $user1 = $userMapper->getUser($userId1);
+                $user2 = $userMapper->getUser($userId2);
+
+                $contactMapper = new ContactMapper($this->db, $this);
+                $contactMapper->save($user1, $user2);
+
+                $response = $response->withStatus(200);
             } catch (Exception $exception) {
-
+                $this->logger->addCritical($exception);
+                $response = $response->withStatus(500);
             } finally {
-
+                return $response;
             }
         });
 
@@ -83,16 +103,12 @@ $app->group('/api', function () use ($app) {
         });
 
         $app->post('/message', function (Request $request, Response $response) {
-
         });
 
         $app->post('/auth', function (Request $request, Response $response) {
             $ipaddress = $request->getAttribute('ip_address');
-            $userMapper = new UserMapper($this->db, $this);
-
-            /**To-Do */
-
-            return $response->withAddedHeader("Authorization" , getJWTToken($ipaddress));
+            $userId = $this->userId;
+            return $response->withJson($userId)->withAddedHeader("Authorization" , getJWTToken($userId, $ipaddress));
         });
 
         $app->post('/register', function (Request $request, Response $response, array $args) {

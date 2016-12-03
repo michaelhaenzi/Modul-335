@@ -47,6 +47,7 @@ class UserMapper extends Mapper {
         $result = $stmt->execute(["id" => $id]);
         $data = $stmt->fetch();
         if ($result && !is_bool($data)) {
+            $data["password"] = "";
             return new UserEntity($data);
         } else {
             return null;

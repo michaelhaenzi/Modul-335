@@ -71,3 +71,28 @@ CREATE TABLE IF NOT EXISTS user_chat (
 GRANT ALL PRIVILEGES ON * . * TO 'localAdmin'@'localhost'
 IDENTIFIED BY 'password_admin' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
+
+
+INSERT INTO `chat` (`id`) VALUES
+(1);
+
+INSERT INTO `setting` (`id`, `notification`) VALUES
+(1, 0),
+(2, 1);
+
+/* Passwort für alle: password1*/
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `phonenumber`, `email`, `image_path`, `status`, `password`, `saltkey`, `setting_id`) VALUES
+(1, 'Michael', 'Hänzi', NULL, 'michaelhaenzi@gmai.com', NULL, NULL, '$2y$07$4257693655842c8575431ORpa9x58QP7SVCFJ0V.9C8mObKGWbo2m', NULL, 1),
+(2, 'Nicolas', 'Ackermann', NULL, 'nicolasackermann@gmai.com', NULL, NULL, '$2y$07$20103919355842c881656uPD3M1FxIkKFDsmujPfBv9ib6xa/zSJu', NULL, 2);
+
+INSERT INTO `message` (`id`, `text`, `date`, `chat_id`, `user_id`) VALUES
+(1, 'Hey wat up niciboiiiiii', '2016-12-03 13:30:56', 1, 1),
+(2, 'Passt.', '2016-12-03 13:31:21', 1, 2),
+(3, 'Höh?', '2016-12-03 13:31:44', 1, 1);
+
+INSERT INTO `user_chat` (`id`, `chat_id`, `user_id`) VALUES
+(1, 1, 1),
+(2, 1, 2);
+
+INSERT INTO `contact` (`id`, `user_id1`, `user_id2`) VALUES
+(1, 1, 2);

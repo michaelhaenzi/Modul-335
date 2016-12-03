@@ -77,11 +77,18 @@ $app->add(new \Slim\Middleware\HttpBasicAuthentication([
     "path" => "/api/". VERSION ."/auth",
     "relaxed" => ["localhost", "app.localhost", "api.localhost"],
     "authenticator" => new AuthenticatorHelper($container),
-    "callback" => function (Request $request, Response $response, $args) {
-        $container["basicAuth"] = $args;
+    "callback" => function (Request $request, Response $response, $args) use ($container) {
+        $user = $args["user"];
+
+        $userMapper = new UserMapper($container->db, $container);
+        if (filter_var($user, FILTER_VALIDATE_EMAIL)) {
+            $userObject = $userMapper->getUserByEmail($user);
+        } else {
+            $userObject = $userMapper->getUserByPhonenumber($user);
+        }
+        $container["userId"] = $userObject->getId();
     },
     "error" => function (Request $request, Response $response, $args) {
-        $data = [];
         $data["status"] = "error";
         $data["message"] = $args["message"];
         return $response->withoutHeader("WWW-Authenticate")->write(json_encode($data, JSON_UNESCAPED_SLASHES));

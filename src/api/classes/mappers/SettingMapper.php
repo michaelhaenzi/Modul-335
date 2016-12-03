@@ -11,9 +11,9 @@ class SettingMapper extends Mapper {
         $sql = "SELECT s.id, s.notification
                 FROM `user` u
                 INNER JOIN  setting s
-                ON u.setting_id = s.id";
+                ON u.:setting_id = s.id";
         $stmt = $this->db->prepare($sql);
-        $result = $stmt->execute(["id" => $id]);
+        $result = $stmt->execute(["setting_id" => $id]);
         $data = $stmt->fetch();
         if ($result && !is_bool($data)) {
             return new SettingEntity($data);
