@@ -44,23 +44,6 @@ $app->group('/api', function () use ($app) {
             }
         });
 
-        $app->delete('/user/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
-            try {
-                $id = $args["id"];
-                $userMapper = new UserMapper($this->db, $this);
-                $userMapper->deleteUser($id);
-                $response = $response->withStatus(200);
-            } catch (\Slim\Exception\NotFoundException $exception) {
-                $this->logger->addInfo($exception);
-                $response = $response->withStatus(404);
-            } catch (Exception $exception) {
-                $this->logger->addError($exception);
-                $response = $response->withStatus(500);
-            } finally {
-                return $response;
-            }
-        });
-
 
         $app->get('/contacts', function (Request $request, Response $response) {
             try {
@@ -98,11 +81,32 @@ $app->group('/api', function () use ($app) {
             }
         });
 
-
-        $app->get('/messages', function (Request $request, Response $response) {
+        $app->get('/chats', function (Request $request, Response $response) {
+            try {
+                $userId = $this->jwt->userId;
+                $chatMapper = new ChatMapper($this->db, $this);
+                $chats = $chatMapper->getChats($userId);
+                $response = $response->withJson($chats);
+            } catch (Exception $exception) {
+                $this->logger->addCritical($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
         });
 
-        $app->post('/message', function (Request $request, Response $response) {
+        $app->get('/chat/{id:[0-9]+}', function (Request $request, Response $response, $args) {
+            try {
+                $id = $args["id"];
+                $chatMapper = new ChatMapper($this->db, $this);
+                $messages = $chatMapper->getChat($id);
+                $response = $response->withJson($messages);
+            } catch (Exception $exception) {
+                $this->logger->addCritical($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
         });
 
         $app->post('/auth', function (Request $request, Response $response) {

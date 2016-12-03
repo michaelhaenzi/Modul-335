@@ -11,19 +11,18 @@ class MessageEntity implements JsonSerializable
     private $id;
     private $text;
     private $date;
-    private $sender;
-    private $reciever;
+    private $chatId;
+    private $userId;
 
     public function __construct(array $data)
     {
         if (isset($data['id'])) {
             $this->id = $data['id'];
         }
-        $this->firstname = $data['firstname'];
         $this->text = $data['text'];
         $this->date = $data['date'];
-        $this->sender = $data['sender'];
-        $this->reciever = $data['reciever'];
+        $this->chatId = $data['chat_id'];
+        $this->userId = $data['user_id'];
     }
 
     /**
@@ -53,17 +52,17 @@ class MessageEntity implements JsonSerializable
     /**
      * @return mixed
      */
-    public function getSender()
+    public function getChatId()
     {
-        return $this->sender;
+        return $this->chatId;
     }
 
     /**
      * @return mixed
      */
-    public function getReciever()
+    public function getUserId()
     {
-        return $this->reciever;
+        return $this->userId;
     }
 
 
