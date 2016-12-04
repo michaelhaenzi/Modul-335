@@ -12,8 +12,8 @@ import {LoginService} from "../../services/login-service/login.service";
 })
 export class LoginComponent implements OnInit {
 
-  public login: string = "";
-  public password: string = "";
+  public login: string;
+  public password: string;
 
   /**
    * Konstruktor
@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
    * Beim drücken des Login buttons
    */
   public doLogin(): void {
+    console.log(this.login + ":" + this.password);
     this.loginService.doLogin({login: this.login, password: this.password});
   }
 

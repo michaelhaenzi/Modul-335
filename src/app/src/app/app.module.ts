@@ -18,11 +18,14 @@ import { AuthContextService } from './context/auth-context/auth-context.service'
 import { CustomHttpContextService } from './context/http-context/custom-http-context.service';
 import { ChatListComponent } from './pages/chat/list/chat-list.component';
 import { ChatDetailComponent } from './pages/chat/detail/chat-detail.component';
+import { ChatComponent } from './pages/chat/chat/chat.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'chats', component: ChatListComponent },
-  { path: 'chats/:id', component: ChatDetailComponent },
+  { path: 'chats', component: ChatComponent, children: [
+    { path: ':id', component: ChatDetailComponent },
+    { path: '', component: ChatListComponent }
+  ] },
   { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -34,7 +37,8 @@ const appRoutes: Routes = [
     HomeComponent,
     LoginComponent,
     ChatListComponent,
-    ChatDetailComponent
+    ChatDetailComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

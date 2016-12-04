@@ -32,6 +32,7 @@ export class AuthService {
    * @param form
    */
   public doLogin(loginBody: any): void {
+      console.log("XY", loginBody);
     this.http.auth(loginBody).subscribe((res: RestObject) => {
       console.log("Antwort: ", res);
     }, (err) => {
