@@ -44,7 +44,6 @@ export class CustomHttpService implements HttpInterface {
    */
   private preAuth(loginBody: any): Headers {
     let head: Headers = new Headers();
-    console.log(loginBody.login + ":" + loginBody.password);
     head.append("Authorization", "Basic " + btoa(loginBody.login + ":" + loginBody.password));
     return head;
   }
@@ -94,8 +93,8 @@ export class CustomHttpService implements HttpInterface {
    *
    * @returns {Observable<R>}
    */
-  public auth(loginBody: any): Observable<RestObject> {
-    return this.http.post(this.httpContext.BASEURL + "auth", {}, {headers: this.preAuth(loginBody)}).map((res: Response) => new RestObject(res.json()));
+  public auth(loginBody: any): Observable<Response> {
+    return this.http.post(this.httpContext.BASEURL + "auth", {}, {headers: this.preAuth(loginBody)});
   }
 
 }

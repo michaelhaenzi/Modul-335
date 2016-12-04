@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AuthService} from "../auth-service/auth.service";
+import {RestObject} from "../../class/rest-object";
+import {Observable} from "rxjs";
+import {Response} from "@angular/http";
 
 /**
  * Creator: ACN
@@ -15,9 +18,8 @@ export class LoginService {
    *
    * @param form
    */
-  public doLogin(loginBody: any): void {
-    console.log("X", loginBody);
-    this.authService.doLogin(loginBody);
+  public doLogin(loginBody: any): Observable<Response> {
+    return this.authService.doLogin(loginBody);
   }
 
 }

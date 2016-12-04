@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {CustomHttpService} from "../custom-http-service/custom-http.service";
 import {RestObject} from "../../class/rest-object";
+import {Observable} from "rxjs";
+import {Response} from "@angular/http";
 
 /**
  * Creator: ACN
@@ -9,7 +11,7 @@ import {RestObject} from "../../class/rest-object";
 @Injectable()
 export class AuthService {
 
-  private loggedIn: boolean = true;
+  public loggedIn: boolean = true;
   private MOUNTPOINT: string = "auth";
 
   /**
@@ -26,18 +28,17 @@ export class AuthService {
     return this.loggedIn;
   }
 
+  public doLogout(): void {
+    this.loggedIn = false;
+  }
+
   /**
    * Führt einen REST Login aus
    *
    * @param form
    */
-  public doLogin(loginBody: any): void {
-      console.log("XY", loginBody);
-    this.http.auth(loginBody).subscribe((res: RestObject) => {
-      console.log("Antwort: ", res);
-    }, (err) => {
-      console.log("Error: ", err);
-    });
+  public doLogin(loginBody: any): Observable<Response> {
+    return this.http.auth(loginBody);
   }
 
 }

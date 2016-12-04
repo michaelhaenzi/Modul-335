@@ -3,12 +3,16 @@
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     color: #333;
 }
+*:focus {
+    outline: none;
+}
 html {
     height: 100vh;
     width: 100vw;
 }
 body {
     margin: 0;
+    height: 100%;
 }
 a {
     color: black;

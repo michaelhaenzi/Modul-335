@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './pages/auth/login/login.component';
 
 import { CustomHttpService } from './services/custom-http-service/custom-http.service';
 import { AuthService } from './services/auth-service/auth.service';
@@ -19,6 +19,7 @@ import { CustomHttpContextService } from './context/http-context/custom-http-con
 import { ChatListComponent } from './pages/chat/list/chat-list.component';
 import { ChatDetailComponent } from './pages/chat/detail/chat-detail.component';
 import { ChatComponent } from './pages/chat/chat/chat.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
     { path: '', component: ChatListComponent }
   ] },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
     LoginComponent,
     ChatListComponent,
     ChatDetailComponent,
-    ChatComponent
+    ChatComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

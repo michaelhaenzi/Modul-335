@@ -27,4 +27,15 @@ export class AppComponent implements OnInit {
   public openSideMenu(): void {
     this.sideMenuDisplay = !this.sideMenuDisplay;
   }
+
+  public preLogout(): void {
+    this.openSideMenu();
+    this.logout();
+  }
+
+  public logout(): void {
+    this.authService.doLogout();
+    this.isLoggedIn = false;
+    this.router.navigateByUrl('/login');
+  }
 }
