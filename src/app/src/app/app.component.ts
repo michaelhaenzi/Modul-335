@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./services/auth-service/auth.service";
 import {Router} from "@angular/router";
+import {EventsService} from "./services/events.service";
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,14 @@ export class AppComponent implements OnInit {
   /**
    * Konstruktor
    */
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private eventsService: EventsService) {}
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
+    var self = this;
+    this.eventsService.on("auth:login", function () {
+      self.isLoggedIn = true;
+    });
   }
 
   /**

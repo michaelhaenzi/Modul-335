@@ -18,7 +18,7 @@ export class LoginService {
    *
    * @param form
    */
-  public doLogin(loginBody: any): Observable<Response> {
+  public doLogin(loginBody: any): Observable<any> {
     return this.authService.doLogin(loginBody);
   }
 

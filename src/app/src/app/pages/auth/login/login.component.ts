@@ -3,6 +3,7 @@ import {LoginService} from "../../../services/login-service/login.service";
 import {RestObject} from "../../../class/rest-object";
 import {Router} from "@angular/router";
 import {Response} from "@angular/http";
+import {EventsService} from "../../../services/events.service";
 
 /**
  * Creator: ACN
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   /**
    * Konstruktor
    */
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private eventsService: EventsService) { }
 
   ngOnInit(): void {
 
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
       this.loginError.error = true;
       this.loginError.message = "Bitte Formular ausfüllen.";
     } else {
-      this.loginService.doLogin({login: this.login, password: this.password}).subscribe((res: Response) => {
+      this.loginService.doLogin({login: this.login, password: this.password}).subscribe((res: any) => {
+        this.eventsService.broadcast("auth:login");
         this.router.navigateByUrl('/chats');
       }, (err) => {
         console.log("Error: ", err);

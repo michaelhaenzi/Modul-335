@@ -11,7 +11,7 @@ import {Response} from "@angular/http";
 @Injectable()
 export class AuthService {
 
-  public loggedIn: boolean = true;
+  public loggedIn: boolean = false;
   private MOUNTPOINT: string = "auth";
 
   /**
@@ -37,7 +37,7 @@ export class AuthService {
    *
    * @param form
    */
-  public doLogin(loginBody: any): Observable<Response> {
+  public doLogin(loginBody: any): Observable<any> {
     return this.http.auth(loginBody);
   }
 

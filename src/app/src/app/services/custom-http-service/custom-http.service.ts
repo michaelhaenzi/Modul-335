@@ -93,7 +93,7 @@ export class CustomHttpService implements HttpInterface {
    *
    * @returns {Observable<R>}
    */
-  public auth(loginBody: any): Observable<Response> {
+  public auth(loginBody: any): Observable<any> {
     return this.http.post(this.httpContext.BASEURL + "auth", {}, {headers: this.preAuth(loginBody)});
   }
 

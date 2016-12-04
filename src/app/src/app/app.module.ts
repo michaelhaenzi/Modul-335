@@ -13,6 +13,7 @@ import { CustomHttpService } from './services/custom-http-service/custom-http.se
 import { AuthService } from './services/auth-service/auth.service';
 import { LoginService } from './services/login-service/login.service';
 import { ChatService } from './services/entity-service/chat-service/chat.service';
+import { EventsService } from './services/events.service';
 
 import { AuthContextService } from './context/auth-context/auth-context.service';
 import { CustomHttpContextService } from './context/http-context/custom-http-context.service';
@@ -55,7 +56,8 @@ const appRoutes: Routes = [
     LoginService,
     AuthContextService,
     CustomHttpContextService,
-    ChatService
+    ChatService,
+    EventsService
   ],
   bootstrap: [AppComponent]
 })
