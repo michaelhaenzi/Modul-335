@@ -1,5 +1,22 @@
-<div style="width: 100%; background-color: #f1424b; padding: 50px 0px; height: calc(100% - 100px);">
+<div class="horizon-register-page">
   <div>
-    <h2 style="text-align: center; color: white;">- Horizon -</h2>
+    <a style="color: white;" routerLink="/login">Back</a><h2 class="horizon-register-title">- Horizon -</h2>
+  </div>
+  <div class="horizon-register-body">
+    <div class="horizon-register-input-warpup">
+      <input class="horizon-register-input" type="text" placeholder="Vorname" maxlength="128" [(ngModel)]="firstname">
+    </div>
+    <div class="horizon-register-input-warpup">
+      <input class="horizon-register-input" type="text" placeholder="Nachname" maxlength="128" [(ngModel)]="lastname">
+    </div>
+    <div class="horizon-register-input-warpup">
+      <input class="horizon-register-input" type="email" placeholder="Email" maxlength="128" [(ngModel)]="login">
+    </div>
+    <div class="horizon-register-input-warpup">
+      <input class="horizon-register-input" type="password" placeholder="Passwort" maxlength="128" [(ngModel)]="password">
+    </div>
+    <div class="horizon-register-submit-wrapup">
+      <button class="horizon-register-submit" (click)="doRegister()">Registrieren</button>
+    </div>
   </div>
 </div>

@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
     } else {
       this.loginService.doLogin({login: this.login, password: this.password}).subscribe((res: any) => {
         this.eventsService.broadcast("auth:login");
-        this.router.navigateByUrl('/chats');
       }, (err) => {
         console.log("Error: ", err);
         this.loginError.error = true;

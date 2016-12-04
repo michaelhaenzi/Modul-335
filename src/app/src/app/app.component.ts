@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
     var self = this;
     this.eventsService.on("auth:login", function () {
       self.isLoggedIn = true;
+      self.authService.setLoggedIn();
+      self.router.navigateByUrl('/');
     });
   }
 

@@ -28,6 +28,10 @@ export class AuthService {
     return this.loggedIn;
   }
 
+  public setLoggedIn(): void {
+    this.loggedIn = true;
+  }
+
   public doLogout(): void {
     this.loggedIn = false;
   }
