@@ -92,4 +92,25 @@ class UserMapper extends Mapper {
             return $this->db->lastInsertId();
         }
     }
+
+    public function  update($userId, $data) {
+        $sql = "UPDATE `user`
+        SET firstname = :firstname, lastname = :lastname, email = :email,
+        phonenumber = :phonenumber, image_path = :image_path, status = :status
+        WHERE id = :userId";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute([
+            "firstname" => $data["firstname"],
+            "lastname" => $data["lastname"],
+            "email" => $data["email"],
+            "phonenumber" => $data["phonenumber"],
+            "image_path" => $data["image_path"],
+            "status" => $data["status"],
+            "userId" => $userId
+        ]);
+
+        if (!$result) {
+            throw new Exception("could not save record");
+        }
+    }
 }
