@@ -46,6 +46,16 @@ $app->group('/api', function () use ($app) {
 
         $app->put('/user', function (Request $request, Response $response) {
             try {
+                $userId = $this->jwt->userId;
+                $requestBody = $request->getParams();
+                $files = $request->getUploadedFiles();
+                $userMapper = new UserMapper($this->db, $this);
+
+                if (!empty($files['profileImage'])) {
+                    $requestBody['image_path'] = FileHelper::setProfileImage($files);
+                }
+
+                $userMapper->update($userId, $requestBody);
             } catch (\Slim\Exception\NotFoundException $exception) {
                 $this->logger->addInfo($exception);
                 $response = $response->withStatus(404);
@@ -137,6 +147,23 @@ $app->group('/api', function () use ($app) {
             }
         });
 
+        $app->post('/message', function (Request $request, Response $response) {
+            try {
+                $userId = $this->jwt->userId;
+                $requestBody = $request->getParams();
+
+                $messageMapper = new MessageMapper($this->db, $this);
+                $chatId = $messageMapper->save($userId, $requestBody);
+
+                $response = $response->withJson(chatId)->withStatus(200);
+            } catch (Exception $exception) {
+                $this->logger->addCritical($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
+        });
+
         $app->post('/auth', function (Request $request, Response $response) {
             $ipaddress = $request->getAttribute('ip_address');
             $userId = $this->userId;
@@ -153,6 +180,7 @@ $app->group('/api', function () use ($app) {
 
                 $requestBody = $request->getParams();
                 $requestBody["password"] = PasswordHelper::getSaltedPassword($requestBody);
+                $requestBody["image_path"] = DEFAULT_USER_IMAGE;
                 $user = new UserEntity($requestBody);
                 $userMapper = new UserMapper($this->db, $this);
                 $userId = $userMapper->save($user, $settingId);

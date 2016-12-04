@@ -16,3 +16,8 @@ define('MYSQL_HOST', 'localhost');
 define('MYSQL_USER', 'localAdmin');
 define('MYSQL_PW', 'password_admin');
 define('MYSQL_DB', 'horizon');
+
+define('PROTOCOL', 'http');
+define('HOST', 'api.localhost');
+
+define('DEFAULT_USER_IMAGE', PROTOCOL . "://" . HOST . "/files/images/default_user.png");
