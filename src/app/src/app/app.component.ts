@@ -22,8 +22,8 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn();
     var self = this;
     this.eventsService.on("auth:login", function () {
-      self.isLoggedIn = true;
       self.authService.setLoggedIn();
+      self.isLoggedIn = true;
       self.router.navigateByUrl('/');
     });
   }

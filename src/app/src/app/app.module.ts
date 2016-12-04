@@ -21,6 +21,10 @@ import { ChatListComponent } from './pages/chat/list/chat-list.component';
 import { ChatDetailComponent } from './pages/chat/detail/chat-detail.component';
 import { ChatComponent } from './pages/chat/chat/chat.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
+import { ContactListComponent } from './pages/contact/list/contact-list.component';
+import { SettingsComponent } from './pages/auth/settings/settings.component';
+import { ContactComponent } from './pages/contact/contact/contact.component';
+import { ContactDetailComponent } from './pages/contact/detail/contact-detail.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,6 +34,11 @@ const appRoutes: Routes = [
   ] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'contacts', component: ContactComponent, children: [
+    { path: ':id', component: ContactDetailComponent },
+    { path: '', component: ContactListComponent }
+  ]  },
+  { path: 'settings', component: SettingsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -42,7 +51,12 @@ const appRoutes: Routes = [
     ChatListComponent,
     ChatDetailComponent,
     ChatComponent,
-    RegisterComponent
+    RegisterComponent,
+    ContactListComponent,
+    SettingsComponent,
+    ContactComponent,
+    ChatDetailComponent,
+    ContactDetailComponent
   ],
   imports: [
     BrowserModule,
