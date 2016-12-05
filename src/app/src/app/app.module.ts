@@ -15,6 +15,8 @@ import { LoginService } from './services/login-service/login.service';
 import { ChatService } from './services/entity-service/chat-service/chat.service';
 import { UserService } from './services/entity-service/user-service/user.service';
 import { EventsService } from './services/events.service';
+import { UserSearchService } from './services/entity-service/user-search/user-search.service';
+import { SettingsService } from './services/entity-service/settings-service/settings.service';
 
 import { CustomHttpContextService } from './context/http-context/custom-http-context.service';
 import { ChatListComponent } from './pages/chat/list/chat-list.component';
@@ -47,6 +49,7 @@ const appRoutes: Routes = [
     { path: '', component: ContactListComponent }
   ]  },
   { path: 'form/contacts', component: ContactFormComponent },
+  { path: 'search/contacts', component: UserSearchComponent },
   { path: 'settings', component: SettingsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -83,7 +86,9 @@ const appRoutes: Routes = [
     CustomHttpContextService,
     ChatService,
     UserService,
-    EventsService
+    EventsService,
+    UserSearchService,
+    SettingsService
   ],
   bootstrap: [AppComponent]
 })

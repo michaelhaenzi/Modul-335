@@ -6,12 +6,12 @@
       </div>
       <div style="display: inline-block; height: 59px; width: calc(100% - 120px); border-bottom: 1px solid #c7c7c7;">
         <div style="height: 50%; margin: 0; line-height: 40px;">
-          <h4>{{chat.get('partner').display('lastname')}} {{chat.get('partner').display('firstname')}}<span style="font-size: 12px; float: right; line-height: 20px;">4h ago</span></h4>
+          <h4>{{chat.get('partner').display('lastname')}} {{chat.get('partner').display('firstname')}}<span style="font-size: 12px; float: right; line-height: 20px;">{{chat.get('message').display('date') | date:'M.d'}}</span></h4>
         </div>
         <div style="height: 50%; margin: 0;"><span>{{chat.get('message').display('text')}}</span></div>
       </div>
       <div style="display: inline-block; float: right; height: 59px; width: 40px; padding-left: 10px; border-bottom: 1px solid #c7c7c7;">
-        <i>i</i>
+        <i class="material-icons" style="font-size: 26px; height: 100%; width: 100%; text-align: center; line-height: 60px;">keyboard_arrow_right</i>
       </div>
     </a>
   </div>

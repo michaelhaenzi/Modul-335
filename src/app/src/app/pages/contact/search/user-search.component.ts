@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RestList} from "../../../class/rest-list";
 import {EventsService} from "../../../services/events.service";
 import {UserService} from "../../../services/entity-service/user-service/user.service";
+import {UserSearchService} from "../../../services/entity-service/user-search/user-search.service";
 
 @Component({
   selector: 'app-user-search',
@@ -12,8 +13,9 @@ export class UserSearchComponent implements OnInit {
 
   public restList: RestList = new RestList([]);
   public loading: boolean = true;
+  public searchStr: string = "";
 
-  constructor(private eventsService: EventsService, private userService: UserService) { }
+  constructor(private eventsService: EventsService, private userService: UserSearchService) { }
 
   ngOnInit() {
     this.getList();

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from "../../../services/events.service";
+import {SettingsService} from "../../../services/entity-service/settings-service/settings.service";
+import {RestObject} from "../../../class/rest-object";
 
 /**
  * Creator: ACN
@@ -14,10 +16,17 @@ export class SettingsComponent implements OnInit {
 
   public messageMe: boolean = false;
 
-  constructor(private eventsService: EventsService) { }
+  constructor(private eventsService: EventsService, private settingsService: SettingsService) { }
 
   ngOnInit() {
     this.eventsService.trigger("route:back", false, "", "Einstellungen", false);
+    this.settingsService.getSingle(parseInt(localStorage.getItem("USER_ID"))).subscribe((res: RestObject) => {
+      this.messageMe = JSON.parse(res.display('messageMe'));
+    })
+  }
+
+  public saveSettings(): void {
+    this.settingsService.putItem(parseInt(localStorage.getItem("USER_ID")), {messageMe: this.messageMe}).subscribe();
   }
 
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {CustomHttpService} from "../../../services/custom-http-service/custom-http.service";
+import {AuthService} from "../../../services/auth-service/auth.service";
+import {EventsService} from "../../../services/events.service";
 
 /**
  * Creator: ACN
@@ -16,14 +19,18 @@ export class RegisterComponent implements OnInit {
   public login: string = "";
   public password: string = "";
 
-  constructor() { }
+  constructor(private http: AuthService, private eventsService: EventsService
+  ) { }
 
   ngOnInit() {
 
   }
 
   public doRegister(): void {
-
+    this.http.doRegister({firstname: this.firstname, lastname: this.lastname, login: this.login, password: this.password}).then((res: any) => {
+      this.eventsService.trigger("auth:login");
+    }).catch((err) => {
+      console.log("Error: ", err);
+    });
   }
-
 }

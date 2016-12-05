@@ -55,18 +55,40 @@ export class AuthService {
   public doLogin(loginBody: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.http.auth(loginBody)
-        .subscribe((res: Response) => {
-          let json: Object = res.json();
-          if (json.hasOwnProperty("Authorization") && json.hasOwnProperty("userId")) {
-            localStorage.setItem("TOKEN", json["Authorization"]);
-            localStorage.setItem("USER_ID", json["userId"]);
-            resolve();
-          } else {
+          .subscribe((res: Response) => {
+            let json: Object = res.json();
+            if (json.hasOwnProperty("Authorization") && json.hasOwnProperty("userId")) {
+              localStorage.setItem("TOKEN", json["Authorization"]);
+              localStorage.setItem("USER_ID", json["userId"]);
+              resolve();
+            } else {
+              reject();
+            }
+          }, (err) => {
             reject();
-          }
-        }, (err) => {
-          reject();
-        });
+          });
+    });
+  }
+
+  /**
+   * Führt einen REST Login aus
+   *
+   * @param form
+   */
+  public doRegister(loginBody: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.http.postItem("register", loginBody)
+          .subscribe((res: RestObject) => {
+            if (res.has("Authorization") && res.has("userId")) {
+              localStorage.setItem("TOKEN", res.display("Authorization"));
+              localStorage.setItem("USER_ID", res.display("userId"));
+              resolve();
+            } else {
+              reject();
+            }
+          }, (err) => {
+            reject();
+          });
     });
   }
 

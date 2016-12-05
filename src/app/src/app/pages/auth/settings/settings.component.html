@@ -10,19 +10,27 @@
     <div style="display: inline; width: 40px; float: left; height: 35px;">
 
     </div>
-    <div style="display: inline; width: calc(100% - 60px); float: right; height: 35px; border-bottom: 1px solid #c7c7c7; border-top: 1px solid #c7c7c7; line-height: 35px; padding: 0px 10px">
+    <div style="display: inline; width: calc(100% - 60px); float: right; height: 35px; border-bottom: 1px solid #c7c7c7; border-top: 1px solid #c7c7c7; line-height: 35px; display: block; padding: 0px 10px">
       Kontakt bearbeiten
     </div>
   </div>
-  <div style="width: 100%; height: 35px;">
+  <div style="width: 100%; height: 35px; display: block;">
     <div style="display: inline; width: 40px; float: left; height: 35px;">
 
     </div>
-    <div style="display: inline; width: calc(100% - 90px); float: right; height: 35px; border-bottom: 1px solid #c7c7c7; line-height: 35px; padding: 0px 10px">
+    <div style="display: inline-block; width: calc(100% - 110px); height: 35px; border-bottom: 1px solid #c7c7c7; line-height: 35px; padding: 0px 10px;">
       Benachrichtigung
     </div>
     <div style="display: inline; width: 30px; float: right; height: 35px; border-bottom: 1px solid #c7c7c7; line-height: 35px; padding: 0px 10px">
       <input type="checkbox" [(ngModel)]="messageMe">
+    </div>
+  </div>
+  <div style="margin-top: 50px; width: 100%; height: 35px;" (click)="saveSettings()">
+    <div style="display: inline; width: 40px; float: left; height: 35px;">
+
+    </div>
+    <div style="display: inline; width: calc(100% - 60px); float: right; height: 35px; border-bottom: 1px solid #c7c7c7; border-top: 1px solid #c7c7c7; line-height: 35px; display: block; padding: 0px 10px">
+      Speichern
     </div>
   </div>
 </div>
