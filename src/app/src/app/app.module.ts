@@ -25,6 +25,9 @@ import { ContactListComponent } from './pages/contact/list/contact-list.componen
 import { SettingsComponent } from './pages/auth/settings/settings.component';
 import { ContactComponent } from './pages/contact/contact/contact.component';
 import { ContactDetailComponent } from './pages/contact/detail/contact-detail.component';
+import { NewChatComponent } from './pages/chat/new/new-chat.component';
+import { ContactFormComponent } from './pages/contact/form/contact-form.component';
+import { UserSearchComponent } from './user-search/user-search.component';
 
 /**
  * Creator: ACN
@@ -34,6 +37,7 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'chats', component: ChatComponent, children: [
     { path: ':id', component: ChatDetailComponent },
+    { path: 'new/:id', component: NewChatComponent },
     { path: '', component: ChatListComponent }
   ] },
   { path: 'login', component: LoginComponent },
@@ -42,6 +46,7 @@ const appRoutes: Routes = [
     { path: ':id', component: ContactDetailComponent },
     { path: '', component: ContactListComponent }
   ]  },
+  { path: 'form/contacts', component: ContactFormComponent },
   { path: 'settings', component: SettingsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -60,7 +65,10 @@ const appRoutes: Routes = [
     SettingsComponent,
     ContactComponent,
     ChatDetailComponent,
-    ContactDetailComponent
+    ContactDetailComponent,
+    NewChatComponent,
+    ContactFormComponent,
+    UserSearchComponent
   ],
   imports: [
     BrowserModule,

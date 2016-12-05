@@ -3,12 +3,6 @@
     <div *ngFor="let message of restObject.items" class="horizon-chat-row-message">
       <span [ngClass]="{'horizon-chat-row-message-me': message.display('userId') == userId, 'horizon-chat-row-message-partner': message.display('userId') != userId}">{{message.display('text')}}</span>
     </div>
-    <!--div style="width: 100%; min-height: 26px; overflow: auto; margin-bottom: 10px;">
-      <span class="horizon-chat-row-message-me">Hey was läuft ?</span>
-    </div>
-    <div style="width: 100%; min-height: 26px; overflow: auto; margin-bottom: 10px;">
-      <span style="float: right; max-width: 75%; line-break: auto; background-color: #f1424b; padding: 4px 10px; color: white; border-radius: 8px; border-bottom-right-radius: 1px;">Hey was läuft ?</span>
-    </div-->
   </div>
 </div>
 <div *ngIf="restObject.length == 0 && !loading">

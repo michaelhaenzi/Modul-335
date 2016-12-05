@@ -30,7 +30,7 @@ export class ChatDetailComponent implements OnInit {
     });
     this.userId = localStorage.getItem("USER_ID");
     this.getSingle();
-    this.eventsService.trigger("route:back", true, "chats", "Ackermann Nicolas");
+    this.eventsService.trigger("route:back", true, "chats", "Lade...");
   }
 
   /**
@@ -38,6 +38,7 @@ export class ChatDetailComponent implements OnInit {
    */
   public getSingle(): void  {
     this.chatService.getMessages(this.chatId).subscribe((res: RestList) => this.restObject = res, (err) => {console.log(err); this.loading = false}, () => this.loading = false);
+    this.chatService.getSingle(this.chatId).subscribe((res: RestObject) => this.eventsService.trigger("route:back", true, "chats", res.display('lastname') + " " + res.display('firstname')));
   }
 
   public sendMessage(): void {
@@ -47,6 +48,6 @@ export class ChatDetailComponent implements OnInit {
     }, (err) => {
       console.log("B: ", err);
     });
-}
+  }
 
 }
