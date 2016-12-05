@@ -4,6 +4,7 @@ import {RestObject} from "../../../class/rest-object";
 import {Router} from "@angular/router";
 import {Response} from "@angular/http";
 import {EventsService} from "../../../services/events.service";
+import {CustomHttpContextService} from "../../../context/http-context/custom-http-context.service";
 
 /**
  * Creator: ACN
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   /**
    * Konstruktor
    */
-  constructor(private loginService: LoginService, private router: Router, private eventsService: EventsService) { }
+  constructor(private loginService: LoginService, private router: Router, private eventsService: EventsService, private httpContext: CustomHttpContextService) { }
 
   ngOnInit(): void {
 
@@ -37,13 +38,13 @@ export class LoginComponent implements OnInit {
       this.loginError.error = true;
       this.loginError.message = "Bitte Formular ausfüllen.";
     } else {
-      this.loginService.doLogin({login: this.login, password: this.password}).subscribe((res: any) => {
-        this.eventsService.broadcast("auth:login");
-      }, (err) => {
+      this.loginService.doLogin({login: this.login, password: this.password}).then((res: any) => {
+        this.eventsService.trigger("auth:login");
+      }).catch((err) => {
         console.log("Error: ", err);
         this.loginError.error = true;
         this.loginError.message = "Fehler beim anmelden.";
-      });;
+      });
     }
   }
 

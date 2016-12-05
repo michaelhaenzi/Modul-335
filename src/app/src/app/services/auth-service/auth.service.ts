@@ -11,13 +11,18 @@ import {Response} from "@angular/http";
 @Injectable()
 export class AuthService {
 
-  public loggedIn: boolean = false;
-  private MOUNTPOINT: string = "auth";
+  public loggedIn: boolean;
 
   /**
    * Konstruktor
    */
-  constructor(private http: CustomHttpService) { }
+  constructor(private http: CustomHttpService) {
+    if(window["TOKEN"] == null) {
+      this.loggedIn = false;
+    } else {
+      this.loggedIn = true;
+    }
+  }
 
   /**
    * returns if logged in
@@ -28,10 +33,16 @@ export class AuthService {
     return this.loggedIn;
   }
 
+  /**
+   * setzt loggedIn auf true
+   */
   public setLoggedIn(): void {
     this.loggedIn = true;
   }
 
+  /**
+   * setzt loggedIn auf false
+   */
   public doLogout(): void {
     this.loggedIn = false;
   }
@@ -41,8 +52,21 @@ export class AuthService {
    *
    * @param form
    */
-  public doLogin(loginBody: any): Observable<any> {
-    return this.http.auth(loginBody);
+  public doLogin(loginBody: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.http.auth(loginBody)
+        .subscribe((res: Response) => {
+          let json: Object = res.json();
+          if (!json.hasOwnProperty("Authorization")) {
+            window["TOKEN"] = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIyIiwiaXAiOiI6OjEifQ.1QkQmk5-XAUd1vAKNnFz6PmHHHZZ7IOuDWGh9rYi0LE";
+            resolve();
+          } else {
+            reject();
+          }
+        }, (err) => {
+          reject();
+        });
+    });
   }
 
 }

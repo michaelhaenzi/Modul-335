@@ -28,12 +28,9 @@ export class CustomHttpService implements HttpInterface {
    */
   private preRequest(): void {
     if(!this.headers.has("Authorization")) {
-      this.httpContext.getToken()
-          .then((token: string) => {
-            if(token != "") {
-              this.headers.append("Authorization", "Bearer" + token);
-            }
-          });
+        if(window["TOKEN"] != "") {
+          this.headers.append("Authorization", "Bearer " + window["TOKEN"]);
+        }
     }
   }
 
@@ -93,7 +90,7 @@ export class CustomHttpService implements HttpInterface {
    *
    * @returns {Observable<R>}
    */
-  public auth(loginBody: any): Observable<any> {
+  public auth(loginBody: any): Observable<Response> {
     return this.http.post(this.httpContext.BASEURL + "auth", {}, {headers: this.preAuth(loginBody)});
   }
 

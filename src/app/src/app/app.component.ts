@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
     var self = this;
-    this.eventsService.on("auth:login", function () {
+    this.eventsService.register("auth:login", function () {
       self.authService.setLoggedIn();
       self.isLoggedIn = true;
       self.router.navigateByUrl('/');

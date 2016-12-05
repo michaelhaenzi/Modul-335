@@ -4,7 +4,8 @@ import {Subject} from "rxjs";
 import {Observable} from "rxjs";
 
 /**
- * Creator: ACN
+ * Creator: jim.taylor.1974
+ * Code from: http://stackoverflow.com/questions/34700438/global-events-in-angular-2
  * Date: 4.12.2016
  */
 @Injectable()
@@ -39,7 +40,7 @@ export class EventsService {
      * @param name
      * @param listener
      */
-    on(name, listener) {
+    register(name, listener) {
         if (!this.listeners[name]) {
             this.listeners[name] = [];
         }
@@ -53,7 +54,7 @@ export class EventsService {
      * @param name
      * @param args
      */
-    broadcast(name, ...args) {
+    trigger(name, ...args) {
         this.eventsSubject.next({
             name,
             args

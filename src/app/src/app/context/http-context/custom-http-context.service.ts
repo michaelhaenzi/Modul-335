@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {EventsService} from "../../services/events.service";
 
 /**
  * Creator: ACN
@@ -8,18 +9,10 @@ import { Injectable } from '@angular/core';
 export class CustomHttpContextService {
 
   public BASEURL: string = "http://api.localhost/api/v1.0/";
+  public TOKEN: string = "";
 
-  constructor() { }
+  constructor(private eventsService: EventsService) {
 
-  /**
-   * Gibt den Token zurück
-   *
-   * @returns {string}
-   */
-  public getToken(): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      resolve("");
-    });
   }
 
 }
