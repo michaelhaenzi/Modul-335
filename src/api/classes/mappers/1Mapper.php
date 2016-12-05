@@ -9,6 +9,12 @@ abstract class Mapper
 {
     protected $db;
     protected $container;
+
+    /**
+     * Mapper constructor.
+     * @param PDO $db
+     * @param \Interop\Container\ContainerInterface $container
+     */
     public function __construct(PDO $db, Interop\Container\ContainerInterface $container)
     {
         $this->db = $db;

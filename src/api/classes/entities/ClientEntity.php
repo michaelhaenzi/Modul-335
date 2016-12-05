@@ -32,8 +32,8 @@ class UserEntity implements JsonSerializable
         if (isset($data['email'])) {
             $this->email = $data['email'];
         }
-        if (isset($data['file_path'])) {
-            $this->file_path = $data['file_path'];
+        if (isset($data['image_path'])) {
+            $this->file_path = $data['image_path'];
         }
         if (isset($data['status'])) {
             $this->status = $data['status'];

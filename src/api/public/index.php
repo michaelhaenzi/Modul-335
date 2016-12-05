@@ -26,11 +26,6 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-$container['helper'] = function () {
-    $helper = new Helper();
-    return $helper;
-};
-
 $container['db'] = function ($c) {
     $db = $c['settings']['db'];
     $pdo = new PDO("mysql:host=" . $db['host'] . ";dbname=" . $db['dbname'], $db['user'], $db['pass'],
@@ -41,17 +36,28 @@ $container['db'] = function ($c) {
 };
 
 #region addMiddleware
+/**
+ * Creator: akrabat
+ * https://github.com/akrabat/rka-ip-address-middleware
+ * Define IpAdress Picker in app
+ */
 $app->add(new RKA\Middleware\IpAddress(true));
+
 $app->add(function (Request $request, Response $response, callable $next) {
-    /** @var $response Response */
     $response = $next($request, $response);
     return $response
-        ->withHeader('Access-Control-Allow-Origin', 'http://app.localhost')
-        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+        ->withHeader('Access-Control-Allow-Origin', 'http://app.localhost', 'http://localhost:4200')
+        ->withHeader('Access-Control-Allow-Headers', 'http://app.localhost', 'http://localhost:4200', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Methods', '*')
         ->withHeader('Access-Control-Allow-Credentials', 'true')
         ->withHeader('Access-Control-Max-Age', '3600');
 });
+
+/**
+ * Creator: tuupola
+ * https://github.com/tuupola/slim-jwt-auth
+ * Define JWT Auth in app
+ */
 $app->add(new \Slim\Middleware\JwtAuthentication([
     "logger" => $container["logger"],
     "relaxed" => ["localhost", "app.localhost", "api.localhost"],
@@ -60,6 +66,9 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
         new \Slim\Middleware\JwtAuthentication\RequestPathRule([
             "path" => "/",
             "passthrough" => ["/api/". VERSION ."/auth", "/api/". VERSION ."/register"]
+        ]),
+        new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
+            "passthrough" => ["OPTIONS"]
         ])
     ],
     "callback" => function (Request $request, Response $response, $args) use ($container) {
@@ -74,6 +83,11 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
     }
 ]));
 
+/**
+ * Creator: tuupola
+ * https://github.com/tuupola/slim-basic-auth
+ * Define BasicAuth in app
+ */
 $app->add(new \Slim\Middleware\HttpBasicAuthentication([
     "path" => "/api/". VERSION ."/auth",
     "relaxed" => ["localhost", "app.localhost", "api.localhost"],

@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   lastname VARCHAR(20),
   phonenumber INT,
   email VARCHAR(30),
-  image_path VARCHAR(40),
+  image_path VARCHAR(70),
   status VARCHAR(30),
   password VARCHAR(100),
   saltkey VARCHAR(20),
@@ -78,12 +78,16 @@ INSERT INTO `chat` (`id`) VALUES
 
 INSERT INTO `setting` (`id`, `notification`) VALUES
 (1, 0),
-(2, 1);
+(2, 0),
+(3, 0),
+(4, 0);
 
 /* Passwort für alle: password1*/
 INSERT INTO `user` (`id`, `firstname`, `lastname`, `phonenumber`, `email`, `image_path`, `status`, `password`, `saltkey`, `setting_id`) VALUES
-(1, 'Michael', 'Hänzi', NULL, 'michaelhaenzi@gmai.com', NULL, NULL, '$2y$07$4257693655842c8575431ORpa9x58QP7SVCFJ0V.9C8mObKGWbo2m', NULL, 1),
-(2, 'Nicolas', 'Ackermann', NULL, 'nicolasackermann@gmai.com', NULL, NULL, '$2y$07$20103919355842c881656uPD3M1FxIkKFDsmujPfBv9ib6xa/zSJu', NULL, 2);
+(1, 'Michael', 'Hänzi', NULL, 'michaelhaenzi@gmail.com', 'http://api.localhost/files/images/default_user.png', NULL, '$2y$07$4257693655842c8575431ORpa9x58QP7SVCFJ0V.9C8mObKGWbo2m', NULL, 1),
+(2, 'Nicolas', 'Ackermann', NULL, 'nicolasackermann@gmail.com', 'http://api.localhost/files/images/default_user.png', NULL, '$2y$07$20103919355842c881656uPD3M1FxIkKFDsmujPfBv9ib6xa/zSJu', NULL, 2),
+(3, 'Joan', 'Künzler', NULL, 'joankuenzler@gmail.com', 'http://api.localhost/files/images/default_user.png', NULL, '$2y$07$5350409705845195a3a03u57UM5Uv6vFrFI7bbAzYlgv0JFbQnj2a', NULL, 3),
+(4, 'Lukas', 'Heeb', NULL, 'lukasheeb@gmail.com', 'http://api.localhost/files/images/default_user.png', NULL, '$2y$07$2550136865845196b2adeuJTfHI9nkLoJKEP87P.W7s3otVoa1hT.', NULL, 4);
 
 INSERT INTO `message` (`id`, `text`, `date`, `chat_id`, `user_id`) VALUES
 (1, 'Hey wat up niciboiiiiii', '2016-12-03 13:30:56', 1, 1),

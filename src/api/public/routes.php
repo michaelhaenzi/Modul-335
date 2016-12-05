@@ -102,7 +102,6 @@ $app->group('/api', function () use ($app) {
                 $userId1 = $this->jwt->userId;
                 $userId2 = $request->getParams()["id"];
 
-
                 $userMapper = new UserMapper($this->db, $this);
                 $user1 = $userMapper->getUser($userId1);
                 $user2 = $userMapper->getUser($userId2);
@@ -155,7 +154,7 @@ $app->group('/api', function () use ($app) {
                 $messageMapper = new MessageMapper($this->db, $this);
                 $chatId = $messageMapper->save($userId, $requestBody);
 
-                $response = $response->withJson(chatId)->withStatus(200);
+                $response = $response->withJson($chatId)->withStatus(200);
             } catch (Exception $exception) {
                 $this->logger->addCritical($exception);
                 $response = $response->withStatus(500);
@@ -164,10 +163,22 @@ $app->group('/api', function () use ($app) {
             }
         });
 
+        $app->get('/files/image/{data:\w+.\w+}', function (Request $request, Response $response, array $args) {
+            $data = $args['data'];
+            var_dump($data);
+            $image = @file_get_contents("../files/images/$data");
+            if ($image === FALSE) {
+                $handler = $this->notFoundHandler;
+                return $handler($request, $response);
+            }
+            $response->write($image);
+            return $response->withHeader('Content-Type', FILEINFO_MIME_TYPE);
+        });
+
         $app->post('/auth', function (Request $request, Response $response) {
             $ipaddress = $request->getAttribute('ip_address');
             $userId = $this->userId;
-            return $response->withJson($userId)->withAddedHeader("Authorization" , getJWTToken($userId, $ipaddress));
+            return $response->withJson(prepareResponseWithToken($userId, $ipaddress));
         });
 
         $app->post('/register', function (Request $request, Response $response, array $args) {
@@ -184,7 +195,7 @@ $app->group('/api', function () use ($app) {
                 $user = new UserEntity($requestBody);
                 $userMapper = new UserMapper($this->db, $this);
                 $userId = $userMapper->save($user, $settingId);
-                $response = $response->withJson($userId)->withAddedHeader("Authorization" , getJWTToken($userId, $ipaddress));
+                $response = $response->withJson(prepareResponseWithToken($userId, $ipaddress));
             } catch (Exception $exception) {
                 $this->logger->addCritical($exception);
                 $response = $response->withStatus(500);

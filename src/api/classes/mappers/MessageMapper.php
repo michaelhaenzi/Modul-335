@@ -39,7 +39,8 @@ class MessageMapper extends Mapper
         if (!$result) {
             throw new Exception("could not save record");
         } else {
-            return $data["chatId"];
+            $data["id"] = $this->db->lastInsertId();
+            return $data;
         }
     }
 }
