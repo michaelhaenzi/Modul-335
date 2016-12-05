@@ -19,7 +19,11 @@ export class RestObject implements RestObjectInterface {
      * {@inheritDoc}
      */
     public display(property: string): string {
-        return this.raw[property].toString();
+        if(this.raw[property] != null) {
+            return this.raw[property].toString();
+        } else {
+            return "";
+        }
     }
 
     /**

@@ -26,7 +26,7 @@ export class ChatService extends EntityService implements EntityExtendsService {
    * holt Nachrichten
    */
   public getMessages(id: number): Observable<RestList> {
-    return this.http.getList(this.MOUNTPOINT + "/" + id.toString());
+    return this.http.getList("messages" + "/" + id.toString());
   }
 
   /**

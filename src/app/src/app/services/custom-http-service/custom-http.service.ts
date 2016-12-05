@@ -27,11 +27,10 @@ export class CustomHttpService implements HttpInterface {
    * Wird vor der Anfrage ausgeführt
    */
   private preRequest(): void {
-    if(!this.headers.has("Authorization")) {
-        if(localStorage.getItem("TOKEN") != "" || localStorage.getItem("TOKEN") != null) {
-          this.headers.append("Authorization", localStorage.getItem("TOKEN"));
-        }
-    }
+      if(localStorage.getItem("TOKEN") != "" || localStorage.getItem("TOKEN") != null) {
+        this.headers.delete("Authorization");
+        this.headers.append("Authorization", localStorage.getItem("TOKEN"));
+      }
   }
 
   /**
