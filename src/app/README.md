@@ -1,3 +1,7 @@
+userId bi RESTAPI: chat/{id}, han ich ihn sho als Kontakt ?
+kontakt hinzufügen
+contact form
+
 # Client
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.21.
