@@ -1,4 +1,4 @@
-<div *ngIf="chatList.length != 0">
+<div *ngIf="chatList.length != 0 && !loading">
   <div *ngFor="let chat of chatList.items" class="horizon-chat-row">
     <a routerLink="/chats/{{chat.display('id')}}">
       <div style="height: 100%; width: 60px; display: inline-block; float: left; margin-right: 10px;">
@@ -16,7 +16,7 @@
     </a>
   </div>
 </div>
-<div *ngIf="chatList.length == 0">
+<div *ngIf="chatList.length == 0 && !loading">
   <div class="horizon-chat-row">
     <h4 style="text-align: center;">Keine Chats gefunden</h4>
   </div>

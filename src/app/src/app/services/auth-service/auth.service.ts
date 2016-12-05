@@ -17,7 +17,7 @@ export class AuthService {
    * Konstruktor
    */
   constructor(private http: CustomHttpService) {
-    if(window["TOKEN"] == null) {
+    if(localStorage.getItem("TOKEN") == null || localStorage.getItem("TOKEN") == "") {
       this.loggedIn = false;
     } else {
       this.loggedIn = true;
@@ -57,8 +57,9 @@ export class AuthService {
       this.http.auth(loginBody)
         .subscribe((res: Response) => {
           let json: Object = res.json();
-          if (!json.hasOwnProperty("Authorization")) {
-            window["TOKEN"] = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIyIiwiaXAiOiI6OjEifQ.1QkQmk5-XAUd1vAKNnFz6PmHHHZZ7IOuDWGh9rYi0LE";
+          if (json.hasOwnProperty("Authorization") && json.hasOwnProperty("userId")) {
+            localStorage.setItem("TOKEN", json["Authorization"]);
+            localStorage.setItem("USER_ID", json["userId"]);
             resolve();
           } else {
             reject();

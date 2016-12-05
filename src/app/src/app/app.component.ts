@@ -16,6 +16,9 @@ export class AppComponent implements OnInit {
 
   public isLoggedIn: boolean;
   public sideMenuDisplay: boolean = false;
+  public viewBack: boolean = false;
+  public backRoute: string = "";
+  public title: string = "Home";
 
   /**
    * Konstruktor
@@ -29,6 +32,11 @@ export class AppComponent implements OnInit {
       self.authService.setLoggedIn();
       self.isLoggedIn = true;
       self.router.navigateByUrl('/');
+    });
+    this.eventsService.register("route:back", function (viewBack: boolean, backRoute: string, title: string) {
+      self.viewBack = viewBack;
+      self.backRoute = backRoute;
+      self.title = title;
     });
   }
 
@@ -47,6 +55,7 @@ export class AppComponent implements OnInit {
   public logout(): void {
     this.authService.doLogout();
     this.isLoggedIn = false;
+    localStorage.clear();
     this.router.navigateByUrl('/login');
   }
 }

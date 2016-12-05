@@ -22,35 +22,35 @@ export abstract class EntityService implements EntityServiceInterface {
    * {@inheritDoc}
    */
   public getList(): Observable<RestList> {
-    return this.http.getList(this.MOUNTPOINT);
+    return this.http.getList(this.MOUNTPOINT + "s");
   }
 
   /**
    * {@inheritDoc}
    */
   public getSingle(id: number): Observable<RestObject> {
-    return this.http.getSingle(this.MOUNTPOINT + id.toString());
+    return this.http.getSingle(this.MOUNTPOINT + "/" + id.toString());
   }
 
   /**
    * {@inheritDoc}
    */
   public postItem(id: number, body: Object): Observable<RestObject> {
-    return this.http.postItem(this.MOUNTPOINT + id.toString(), body);
+    return this.http.postItem(this.MOUNTPOINT + "/" + id.toString(), body);
   }
 
   /**
    * {@inheritDoc}
    */
   public putItem(id: number, body: Object): Observable<RestObject> {
-    return this.http.putItem(this.MOUNTPOINT + id.toString(), body);
+    return this.http.putItem(this.MOUNTPOINT + "/" + id.toString(), body);
   }
 
   /**
    * {@inheritDoc}
    */
   public deleteItem(id: number): Observable<RestObject> {
-    return this.http.deleteItem(this.MOUNTPOINT + id.toString());
+    return this.http.deleteItem(this.MOUNTPOINT + "/" + id.toString());
   }
 
 }

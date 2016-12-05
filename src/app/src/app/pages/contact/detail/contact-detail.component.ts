@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {EventsService} from "../../../services/events.service";
 
 /**
  * Creator: ACN
@@ -11,9 +12,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private eventsService: EventsService) { }
 
   ngOnInit() {
+    this.eventsService.trigger("route:back", true, "contacts", "Ackermann Nicolas");
   }
 
 }

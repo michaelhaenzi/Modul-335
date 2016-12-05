@@ -1,0 +1,9 @@
+.horizon-chat-row-message {
+    width: 100%; min-height: 26px; overflow: auto; margin-bottom: 10px;
+}
+.horizon-chat-row-message-partner {
+    float: left; max-width: 75%; line-break: auto; background-color: #e7e7e7; padding: 4px 10px; border-radius: 8px; border-bottom-left-radius: 1px;
+}
+.horizon-chat-row-message-me {
+    float: right; max-width: 75%; line-break: auto; background-color: #f1424b; padding: 4px 10px; color: white; border-radius: 8px; border-bottom-right-radius: 1px;
+}

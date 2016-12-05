@@ -1,12 +1,15 @@
 <nav *ngIf="isLoggedIn" style="position: fixed; width: calc(100vw - 20px); height: 28px; background-color: #f7f7f7; border-bottom: 1px solid #c7c7c7; padding: 10px 10px;">
     <div style="display: block; height: 100%; width: 100%;">
         <div style="display: inline-block; height: 100%; float: left; width: 35px;">
-            <a (click)="openSideMenu()">
+            <a *ngIf="!viewBack" (click)="openSideMenu()">
                 <span style="color: #f1424b;">M</span>
+            </a>
+            <a *ngIf="viewBack" routerLink="/{{backRoute}}">
+                <span style="color: #f1424b;">B</span>
             </a>
         </div>
         <div style="display: inline-block; height: 100%; width: calc(100% - 85px);">
-            <h4 style="margin: 0;"><a routerLink="/">Home</a></h4>
+            <h4 style="margin: 0;">{{title}}</h4>
         </div>
         <div style="display: inline-block; height: 100%; float: right; width: 50px;">
             <a style="float: left;">
