@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   public viewBack: boolean = false;
   public backRoute: string = "";
   public title: string = "Home";
+  public showSearch: boolean = false;
 
   /**
    * Konstruktor
@@ -33,10 +34,11 @@ export class AppComponent implements OnInit {
       self.isLoggedIn = true;
       self.router.navigateByUrl('/');
     });
-    this.eventsService.register("route:back", function (viewBack: boolean, backRoute: string, title: string) {
+    this.eventsService.register("route:back", function (viewBack: boolean, backRoute: string, title: string, showSearch: boolean) {
       self.viewBack = viewBack;
       self.backRoute = backRoute;
       self.title = title;
+      self.showSearch = showSearch;
     });
   }
 

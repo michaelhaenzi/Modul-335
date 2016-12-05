@@ -8,15 +8,12 @@
                 <span><i class="material-icons" style="color: #f1424b; font-size: 26px;">keyboard_arrow_left</i></span>
             </a>
         </div>
-        <div style="display: inline-block; height: 100%; width: calc(100% - 90px);">
+        <div style="display: inline-block; height: 100%; width: calc(100% - 65px);">
             <h4 style="margin: 0;">{{title}}</h4>
         </div>
-        <div style="display: inline-block; height: 100%; float: right; width: 55px;">
-            <a style="float: left;">
+        <div style="display: inline-block; height: 100%; float: right; width: 30px;">
+            <a *ngIf="showSearch" style="float: left;">
                 <span><i class="material-icons" style="color: #f1424b; font-size: 26px;">search</i></span>
-            </a>
-            <a style="float: right;" (click)="logout()">
-                <span><i class="material-icons" style="color: #f1424b; font-size: 26px;">call_missed_outgoing</i></span>
             </a>
         </div>
     </div>

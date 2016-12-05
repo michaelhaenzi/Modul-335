@@ -15,7 +15,7 @@ export class SettingsComponent implements OnInit {
   constructor(private eventsService: EventsService) { }
 
   ngOnInit() {
-    this.eventsService.trigger("route:back", false, "", "Einstellungen");
+    this.eventsService.trigger("route:back", false, "", "Einstellungen", false);
   }
 
 }

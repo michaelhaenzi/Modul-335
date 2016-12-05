@@ -21,7 +21,7 @@ export class ContactListComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
-    this.eventsService.trigger("route:back", false, "", "Kontakte");
+    this.eventsService.trigger("route:back", false, "", "Kontakte", true);
   }
 
   /**

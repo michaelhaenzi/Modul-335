@@ -30,7 +30,7 @@ export class ContactDetailComponent implements OnInit {
   }
 
   public changeTitel(): void {
-    this.eventsService.trigger("route:back", true, "contacts", this.restObject.display('lastname') + " " + this.restObject.display('firstname'));
+    this.eventsService.trigger("route:back", true, "contacts", this.restObject.display('lastname') + " " + this.restObject.display('firstname'), false);
   }
 
   /**
