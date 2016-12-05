@@ -29,6 +29,10 @@ export class ContactDetailComponent implements OnInit {
     this.eventsService.trigger("route:back", true, "contacts", "Laden...", false, "", false, "");
   }
 
+  public addContact(): void {
+    //this.addServioce
+  }
+
   public changeTitel(): void {
     this.eventsService.trigger("route:back", true, "contacts", this.restObject.display('lastname') + " " + this.restObject.display('firstname'), false);
   }
