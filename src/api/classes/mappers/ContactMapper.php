@@ -31,7 +31,7 @@ class ContactMapper extends Mapper
         $userMapper = new UserMapper($this->db, $this->container);
         $data = array();
         foreach ($array as $temp_id) {
-            $user = $userMapper->getUser($temp_id);
+            $user = $userMapper->getUser($id, $temp_id);
             array_push($data, $user);
         }
         return $data;
