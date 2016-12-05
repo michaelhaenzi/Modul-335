@@ -30,8 +30,9 @@ $app->group('/api', function () use ($app) {
         $app->get('/user/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
             try {
                 $id = $args["id"];
+                $userId = $this->jwt->userId;
                 $userMapper = new UserMapper($this->db, $this);
-                $user = $userMapper->getUser($id);
+                $user = $userMapper->getUser($userId, $id);
                 $response = $response->withJson($user)->withStatus(200);
             } catch (\Slim\Exception\NotFoundException $exception) {
                 $this->logger->addInfo($exception);
@@ -44,10 +45,11 @@ $app->group('/api', function () use ($app) {
             }
         });
 
-        $app->put('/user', function (Request $request, Response $response) {
+        $app->post('/user', function (Request $request, Response $response) {
             try {
                 $userId = $this->jwt->userId;
                 $requestBody = $request->getParams();
+                var_dump($requestBody);
                 $files = $request->getUploadedFiles();
                 $userMapper = new UserMapper($this->db, $this);
 
@@ -56,9 +58,24 @@ $app->group('/api', function () use ($app) {
                 }
 
                 $userMapper->update($userId, $requestBody);
+                $response = $response->withStatus(200);
             } catch (\Slim\Exception\NotFoundException $exception) {
                 $this->logger->addInfo($exception);
                 $response = $response->withStatus(404);
+            } catch (Exception $exception) {
+                $this->logger->addError($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
+        });
+
+        $app->get('/setting', function (Request $request, Response $response) {
+            try {
+                $userId = $this->jwt->userId;
+                $settingMapper = new SettingMapper($this->db, $this);
+                $setting = $settingMapper->getSetting($userId);
+                $response = $response->withJson($setting)->withStatus(200);
             } catch (Exception $exception) {
                 $this->logger->addError($exception);
                 $response = $response->withStatus(500);
@@ -103,8 +120,8 @@ $app->group('/api', function () use ($app) {
                 $userId2 = $request->getParams()["id"];
 
                 $userMapper = new UserMapper($this->db, $this);
-                $user1 = $userMapper->getUser($userId1);
-                $user2 = $userMapper->getUser($userId2);
+                $user1 = $userMapper->getUser($userId1, $userId1);
+                $user2 = $userMapper->getUser($userId1, $userId2);
 
                 $contactMapper = new ContactMapper($this->db, $this);
                 $contactMapper->save($user1, $user2);
@@ -133,6 +150,21 @@ $app->group('/api', function () use ($app) {
         });
 
         $app->get('/chat/{id:[0-9]+}', function (Request $request, Response $response, $args) {
+            try {
+                $chatId = $args["id"];
+                $userId = $this->jwt->userId;
+                $chatMapper = new ChatMapper($this->db, $this);
+                $chats = $chatMapper->getUserWithChatId($userId, $chatId);
+                $response = $response->withJson($chats);
+            } catch (Exception $exception) {
+                $this->logger->addCritical($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
+            }
+        });
+
+        $app->get('/messages/{id:[0-9]+}', function (Request $request, Response $response, $args) {
             try {
                 $id = $args["id"];
                 $chatMapper = new ChatMapper($this->db, $this);
@@ -163,16 +195,15 @@ $app->group('/api', function () use ($app) {
             }
         });
 
-        $app->get('/files/image/{data:\w+.\w+}', function (Request $request, Response $response, array $args) {
+        $app->get('/files/image/{data:\w+.\w+}', function (Request $request, Response $response, $args) {
             $data = $args['data'];
-            var_dump($data);
             $image = @file_get_contents("../files/images/$data");
             if ($image === FALSE) {
-                $handler = $this->notFoundHandler;
-                return $handler($request, $response);
+                $handler = new \Slim\Exception\NotFoundException($request, $response);
+                return $handler;
             }
             $response->write($image);
-            return $response->withHeader('Content-Type', FILEINFO_MIME_TYPE);
+            return $response->withHeader('Content-Type', 'image/*');
         });
 
         $app->post('/auth', function (Request $request, Response $response) {

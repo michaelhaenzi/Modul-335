@@ -39,8 +39,8 @@ class UserMapper extends Mapper {
         }
     }
 
-    public function getUser($id) {
-        $sql = "SELECT id, firstname, lastname, phonenumber, email, image_path, status
+    public function getUser($ownerId, $id) {
+        $sql = "SELECT id, firstname, lastname, phonenumber, email, image_path, status, setting_id
                 FROM `user`
                 WHERE id = :id";
         $stmt = $this->db->prepare($sql);
@@ -48,7 +48,30 @@ class UserMapper extends Mapper {
         $data = $stmt->fetch();
         if ($result && !is_bool($data)) {
             $data["password"] = "";
-            return new UserEntity($data);
+            $user = new UserEntity($data);
+            if ($id == $ownerId) {
+                return $user;
+            } else {
+                $sql = "SELECT u.chat_id
+                FROM user_chat u 
+                JOIN user_chat c on u.chat_id = c.chat_id 
+                WHERE u.user_id = :userId1 AND c.user_id = :userId2;";
+
+                $stmt = $this->db->prepare($sql);
+                $result = $stmt->execute(["userId1" => $ownerId, "userId2" => $user->getId()]);
+                $data = $stmt->fetch();
+
+                if ($result) {
+                    if (empty($data)) {
+                        $user->chatId = null;
+                    } else {
+                        $user->chatId = $data["chat_id"];
+                    }
+                    return $user;
+                } else {
+                    return null;
+                }
+            }
         } else {
             return null;
         }

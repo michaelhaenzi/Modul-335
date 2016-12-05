@@ -21,7 +21,7 @@ class ChatMapper extends Mapper
         $chatIds = array();
         if ($result && !is_bool($userChats)) {
             foreach ($userChats as $userChat) {
-                array_push($chatIds, $userChat["chat_id"]);
+                $chatIds[] = $userChat["chat_id"];
 
             }
         } else {
@@ -50,9 +50,9 @@ class ChatMapper extends Mapper
                     $chat = new stdClass();
 
                     $chat->id = $chatId;
-                    $chat->partner = $userMapper->getUser($partner["id"]);
+                    $chat->partner = $userMapper->getUser($id, $partner["id"]);
                     $chat->lastMessage = $messageResult;
-                    array_push($chats, new ChatListEntity($chat));
+                    $chats[] = new ChatListEntity($chat);
                 } else {
                     return null;
                 }
@@ -80,5 +80,21 @@ class ChatMapper extends Mapper
             return null;
         }
         return $array;
+    }
+
+    public function getUserWithChatId ($userId, $chatId) {
+        $sql = "SELECT `user`.firstname, `user`.lastname, `user`.email, `user`.phonenumber, `user`.image_path, `user`.status
+        FROM user_chat LEFT JOIN `user` ON `user`.id = user_chat.user_id 
+        WHERE chat_id = :chatId AND user_id != :userId";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute(["chatId" => $chatId, "userId" => $userId]);
+        $user = $stmt->fetch();
+        $user["chatId"] = $chatId;
+
+        if ($result && !is_bool($user)) {
+            return $user;
+        } else {
+            return null;
+        }
     }
 }

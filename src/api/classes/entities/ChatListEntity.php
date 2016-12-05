@@ -20,7 +20,7 @@ class ChatListEntity implements JsonSerializable
         $this->partner->id = $chat->partner->getId();
         $this->partner->firstname = $chat->partner->getFirstname();
         $this->partner->lastname = $chat->partner->getLastname();
-        $this->partner->filePath = $chat->partner->getFilePath();
+        $this->partner->image_path = $chat->partner->getFilePath();
 
         $this->message = new stdClass();
         $this->message->id = $chat->lastMessage["id"];
