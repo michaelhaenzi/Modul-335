@@ -3,6 +3,10 @@ import {AuthService} from "./services/auth-service/auth.service";
 import {Router} from "@angular/router";
 import {EventsService} from "./services/events.service";
 
+/**
+ * Creator: ACN
+ * Date: 4.12.2016
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

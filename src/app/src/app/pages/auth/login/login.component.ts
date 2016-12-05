@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {LoginService} from "../../../services/login-service/login.service";
-import {RestObject} from "../../../class/rest-object";
 import {Router} from "@angular/router";
-import {Response} from "@angular/http";
 import {EventsService} from "../../../services/events.service";
 import {CustomHttpContextService} from "../../../context/http-context/custom-http-context.service";
 

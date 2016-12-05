@@ -15,7 +15,6 @@ import { LoginService } from './services/login-service/login.service';
 import { ChatService } from './services/entity-service/chat-service/chat.service';
 import { EventsService } from './services/events.service';
 
-import { AuthContextService } from './context/auth-context/auth-context.service';
 import { CustomHttpContextService } from './context/http-context/custom-http-context.service';
 import { ChatListComponent } from './pages/chat/list/chat-list.component';
 import { ChatDetailComponent } from './pages/chat/detail/chat-detail.component';
@@ -26,6 +25,10 @@ import { SettingsComponent } from './pages/auth/settings/settings.component';
 import { ContactComponent } from './pages/contact/contact/contact.component';
 import { ContactDetailComponent } from './pages/contact/detail/contact-detail.component';
 
+/**
+ * Creator: ACN
+ * Date: 4.12.2016
+ */
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'chats', component: ChatComponent, children: [
@@ -68,7 +71,6 @@ const appRoutes: Routes = [
     CustomHttpService,
     AuthService,
     LoginService,
-    AuthContextService,
     CustomHttpContextService,
     ChatService,
     EventsService
