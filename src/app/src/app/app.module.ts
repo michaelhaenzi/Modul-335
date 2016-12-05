@@ -27,7 +27,7 @@ import { ContactComponent } from './pages/contact/contact/contact.component';
 import { ContactDetailComponent } from './pages/contact/detail/contact-detail.component';
 import { NewChatComponent } from './pages/chat/new/new-chat.component';
 import { ContactFormComponent } from './pages/contact/form/contact-form.component';
-import { UserSearchComponent } from './user-search/user-search.component';
+import { UserSearchComponent } from './pages/contact/search/user-search.component';
 
 /**
  * Creator: ACN

@@ -23,7 +23,7 @@ export class ChatListComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
-    this.eventsService.trigger("route:back", false, "", "Chats", false);
+    this.eventsService.trigger("route:back", false, "", "Chats", false, "");
   }
 
   /**

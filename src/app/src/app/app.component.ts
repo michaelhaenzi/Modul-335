@@ -20,6 +20,9 @@ export class AppComponent implements OnInit {
   public backRoute: string = "";
   public title: string = "Home";
   public showSearch: boolean = false;
+  public searchString: string = "";
+  public goToContact: boolean = false;
+  public contactString: string = "";
 
   /**
    * Konstruktor
@@ -34,11 +37,14 @@ export class AppComponent implements OnInit {
       self.isLoggedIn = true;
       self.router.navigateByUrl('/');
     });
-    this.eventsService.register("route:back", function (viewBack: boolean, backRoute: string, title: string, showSearch: boolean) {
+    this.eventsService.register("route:back", function (viewBack: boolean, backRoute: string, title: string, showSearch: boolean, searchString: string, goToContact: boolean, contactString: string) {
       self.viewBack = viewBack;
       self.backRoute = backRoute;
       self.title = title;
       self.showSearch = showSearch;
+      self.searchString = searchString;
+      self.goToContact = goToContact;
+      self.contactString = contactString;
     });
   }
 

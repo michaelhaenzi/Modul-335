@@ -12,6 +12,8 @@ import {EventsService} from "../../../services/events.service";
 })
 export class SettingsComponent implements OnInit {
 
+  public messageMe: boolean = false;
+
   constructor(private eventsService: EventsService) { }
 
   ngOnInit() {

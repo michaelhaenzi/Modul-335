@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {EventsService} from "../../../services/events.service";
 import {RestList} from "../../../class/rest-list";
+import {EventsService} from "../../../services/events.service";
 import {UserService} from "../../../services/entity-service/user-service/user.service";
 
-/**
- * Creator: ACN
- * Date: 4.12.2016
- */
 @Component({
-  selector: 'app-contact-list',
-  templateUrl: 'contact-list.component.html',
-  styleUrls: ['contact-list.component.css']
+  selector: 'app-user-search',
+  templateUrl: 'user-search.component.html',
+  styleUrls: ['user-search.component.css']
 })
-export class ContactListComponent implements OnInit {
+export class UserSearchComponent implements OnInit {
 
   public restList: RestList = new RestList([]);
   public loading: boolean = true;
@@ -21,7 +17,7 @@ export class ContactListComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
-    this.eventsService.trigger("route:back", false, "", "Kontakte", true, "search/contacts");
+    this.eventsService.trigger("route:back", false, "", "Kontakte", false);
   }
 
   /**

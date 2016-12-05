@@ -26,7 +26,7 @@ export class ContactDetailComponent implements OnInit {
       this.userId = id;
     });
     this.getSingle();
-    this.eventsService.trigger("route:back", true, "contacts", "Laden...");
+    this.eventsService.trigger("route:back", true, "contacts", "Laden...", false, "", false, "");
   }
 
   public changeTitel(): void {
