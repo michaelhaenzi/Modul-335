@@ -31,7 +31,7 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     this.route.params.map(params => params['id']).subscribe((id: number) => {
       this.chatId = id;
     });
-    this.timer = Observable.timer(5000, 5000);
+    this.timer = Observable.timer(2000, 2000);
     this.timerSub = this.timer.subscribe(t => this.getSingle());
     this.userId = localStorage.getItem("USER_ID");
     this.getSingle();
@@ -51,7 +51,7 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     this.chatService.getMessages(this.chatId).subscribe((res: RestList) => this.restObject = res, (err) => {console.log(err); this.loading = false}, () => this.loading = false);
   }
   public getChat(): void {
-    this.chatService.getSingle(this.chatId).subscribe((res: RestObject) => this.eventsService.trigger("route:back", true, "chats", res.display('lastname') + " " + res.display('firstname'), false, "", true, "contacts/" + res.display('chatId')));
+    this.chatService.getSingle(this.chatId).subscribe((res: RestObject) => this.eventsService.trigger("route:back", true, "chats", res.display('lastname') + " " + res.display('firstname'), false, "", true, "contacts/" + res.display('id')));
   }
 
   public sendMessage(): void {

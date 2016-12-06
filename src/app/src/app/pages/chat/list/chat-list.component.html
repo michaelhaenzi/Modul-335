@@ -2,7 +2,7 @@
   <div class="horizon-chat-row">
     <a *ngFor="let chat of chatList.items" routerLink="/chats/{{chat.display('id')}}">
       <div style="height: 100%; width: 60px; display: inline-block; float: left; margin-right: 10px;">
-        <img style="height: 80%; width: 80%; padding: 10%; border-radius: 50%;" src="https://pbs.twimg.com/profile_images/774297805116407808/NhxKlL4B.jpg" />
+        <img style="height: 80%; width: 80%; padding: 10%; border-radius: 50%;" src="{{chat.get('partner').display('image_path')}}" />
       </div>
       <div style="display: inline-block; height: 59px; width: calc(100% - 120px); border-bottom: 1px solid #c7c7c7;">
         <div style="height: 50%; margin: 0; line-height: 40px;">

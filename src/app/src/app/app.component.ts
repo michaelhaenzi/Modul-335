@@ -15,6 +15,7 @@ import {EventsService} from "./services/events.service";
 export class AppComponent implements OnInit {
 
   public username: string = "";
+  public profile_image: string = "";
   public isLoggedIn: boolean;
   public sideMenuDisplay: boolean = false;
   public viewBack: boolean = false;
@@ -33,12 +34,14 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.username = localStorage.getItem("LASTNAME") + " " + localStorage.getItem("FIRSTNAME");
+    this.profile_image = localStorage.getItem("FILEPATH");
     var self = this;
     this.eventsService.register("auth:login", function () {
       self.authService.setLoggedIn();
       self.isLoggedIn = true;
       self.router.navigateByUrl('/');
       self.username = localStorage.getItem("LASTNAME") + " " + localStorage.getItem("FIRSTNAME");
+      self.profile_image = localStorage.getItem("FILEPATH");
     });
     this.eventsService.register("route:back", function (viewBack: boolean, backRoute: string, title: string, showSearch: boolean, searchString: string, goToContact: boolean, contactString: string) {
       self.viewBack = viewBack;

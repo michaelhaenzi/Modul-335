@@ -64,6 +64,10 @@ export class AuthService {
                     if (res.has("firstname") && res.has("lastname")) {
                         localStorage.setItem("FIRSTNAME", res.display("firstname"));
                         localStorage.setItem("LASTNAME", res.display("lastname"));
+                        localStorage.setItem("FILEPATH", res.display("file_path"));
+                        localStorage.setItem("PHONENUMBER", res.display("phonenumber"));
+                        localStorage.setItem("EMAIL", res.display("email"));
+                        localStorage.setItem("STATUS", res.display("status"));
                         resolve();
                     }
                 });
@@ -88,7 +92,6 @@ export class AuthService {
             if (res.has("Authorization") && res.has("userId")) {
               localStorage.setItem("TOKEN", res.display("Authorization"));
               localStorage.setItem("USER_ID", res.display("userId"));
-              console.log("blyat");
               this.http.getSingle("user/" + res.display("userId")).subscribe((res: RestObject) => {
                   if (res.has("firstname") && res.has("lastname")) {
                       localStorage.setItem("FIRSTNAME", res.display("firstname"));

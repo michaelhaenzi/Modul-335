@@ -1,3 +1,28 @@
-<p>
-  contact-form works!
-</p>
+<div class="horizon-contact-form-row">
+    <div style="width: 100%; max-width: 300px; height: 175px; margin-left: auto; margin-right: auto;">
+      <img *ngIf="!file" style="margin-left: auto; margin-right: auto; display: block; height: 100px; width: 100px; padding: 3%; border-radius: 50%;" src="{{profile_image}}">
+      <img *ngIf="file" style="margin-left: auto; margin-right: auto; display: block; height: 100px; width: 100px; padding: 3%; border-radius: 50%;" src="{{file}}">
+      <label for="fileInput" class="horizon-contact-form-submit" type="submit">Ändern</label>
+      <input (change)="changeImage($event)" type="file" id="fileInput" style="display: none;" name="fileInput">
+    </div>
+    <div style="max-width: 300px; width: 100%; margin-left: auto; margin-right: auto; text-align: center;">
+      <div class="horizon-contact-form-input-warpup">
+        <input class="horizon-contact-form-input" [(ngModel)]="firstname" type="text">
+      </div>
+      <div class="horizon-contact-form-input-warpup">
+        <input class="horizon-contact-form-input" [(ngModel)]="lastname" type="text">
+      </div>
+      <div class="horizon-contact-form-input-warpup">
+        <input class="horizon-contact-form-input" [(ngModel)]="email" type="email" name="email">
+      </div>
+      <div class="horizon-contact-form-input-warpup">
+        <input class="horizon-contact-form-input" [(ngModel)]="phonenumber" type="number" name="phonenumber">
+      </div>
+      <div class="horizon-contact-form-input-warpup">
+        <input class="horizon-contact-form-input" [(ngModel)]="status" type="text" name="status">
+      </div>
+      <div class="horizon-contact-form-submit-wrapup">
+        <button class="horizon-contact-form-submit" (click)="updateContact()">Senden</button>
+      </div>
+    </div>
+</div>

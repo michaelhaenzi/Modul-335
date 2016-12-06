@@ -5,7 +5,7 @@
   <div *ngFor="let contact of restList.items" class="horizon-search-row">
     <a routerLink="/contacts/{{contact.display('id')}}" *ngIf="contact.display('firstname').indexOf(searchStr) >= 0 || contact.display('lastname').indexOf(searchStr) >= 0">
       <div style="height: 100%; width: 60px; display: inline-block; float: left; margin-right: 10px;">
-        <img style="height: 80%; width: 80%; padding: 10%; border-radius: 50%;" src="https://pbs.twimg.com/profile_images/774297805116407808/NhxKlL4B.jpg" />
+        <img style="height: 80%; width: 80%; padding: 10%; border-radius: 50%;" src="{{contact.display('file_path')}}" />
       </div>
       <div style="display: inline-block; height: 59px; width: calc(100% - 120px); border-bottom: 1px solid #c7c7c7;">
         <div style="height: 100%; margin: 0; line-height: 60px;"><h4 style="margin: 0;">{{contact.display('lastname')}} {{contact.display('firstname')}}</h4></div>

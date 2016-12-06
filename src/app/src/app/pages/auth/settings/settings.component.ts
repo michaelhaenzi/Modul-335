@@ -15,6 +15,8 @@ import {RestObject} from "../../../class/rest-object";
 export class SettingsComponent implements OnInit {
 
   public messageMe: boolean = false;
+  public username: string = "";
+  public profile_image: string = "";
 
   constructor(private eventsService: EventsService, private settingsService: SettingsService) { }
 
@@ -23,6 +25,8 @@ export class SettingsComponent implements OnInit {
     this.settingsService.get().subscribe((res: RestObject) => {
       this.messageMe = JSON.parse(res.display('notification'));
     })
+    this.username = localStorage.getItem("LASTNAME") + " " + localStorage.getItem("FIRSTNAME");
+    this.profile_image = localStorage.getItem("FILEPATH");
   }
 
   public saveSettings(): void {
