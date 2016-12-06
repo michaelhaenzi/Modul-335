@@ -1,8 +1,8 @@
 <!--div-- *ngFor="let chat of chatList.items">
   <h3 *ngIf="chat.has('id')">{{chat.display('id')}}</h3>
 </div-->
-<div *ngFor="let contact of restList.items" class="horizon-contact-row" style="padding: 50px 0px;">
-  <a routerLink="/contacts/{{contact.display('id')}}">
+<div class="horizon-contact-row" style="padding: 50px 0px;">
+  <a *ngFor="let contact of restList.items" routerLink="/contacts/{{contact.display('id')}}">
     <div style="height: 100%; width: 60px; display: inline-block; float: left; margin-right: 10px;">
       <img style="height: 80%; width: 80%; padding: 10%; border-radius: 50%;" src="https://pbs.twimg.com/profile_images/774297805116407808/NhxKlL4B.jpg" />
     </div>

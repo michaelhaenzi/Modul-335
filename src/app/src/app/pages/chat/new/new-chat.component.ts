@@ -29,17 +29,10 @@ export class NewChatComponent implements OnInit {
     this.eventsService.trigger("route:back", true, "contacts", "Neuer Chat");
   }
 
-  /**
-   * Holt den Chat von der REST API
-   */
-  public getSingle(): void  {
-    this.chatService.getMessages(this.chatId).subscribe((res: RestList) => this.restObject = res, (err) => {console.log(err); this.loading = false}, () => this.loading = false);
-  }
-
   public sendMessage(): void {
     this.chatService.sendMessage({text: this.message, partnerId: this.partnerId}).subscribe((res: RestObject) => {
       this.message = "";
-      this.router.navigateByUrl("/chats/", res.display('chatId'));
+      this.router.navigateByUrl("/chats/" + res.display('chatId'));
     }, (err) => {
       console.log("Error: ", err);
     });

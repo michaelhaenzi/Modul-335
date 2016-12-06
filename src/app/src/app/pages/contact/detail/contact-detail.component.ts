@@ -18,6 +18,7 @@ export class ContactDetailComponent implements OnInit {
   public restObject: RestObject = new RestObject({});
   public userId: number;
   public loading: boolean = true;
+  public weFriends: boolean = false;
 
   constructor(private eventsService: EventsService, private userService: UserService, private route: ActivatedRoute) { }
 
@@ -31,7 +32,7 @@ export class ContactDetailComponent implements OnInit {
 
   public addContact(): void {
     this.userService.addContact({id: this.restObject.display('id')}).subscribe(() => {
-      this.restObject.raw['isContact'] = true;
+      this.weFriends = true;
     });
   }
 
@@ -43,7 +44,14 @@ export class ContactDetailComponent implements OnInit {
    * Holt alle Chats von der REST API
    */
   public getSingle(): void  {
-    this.userService.getSingle(this.userId).subscribe((res: RestObject) => {this.restObject = res; this.changeTitel();}, (err) => {console.log(err), this.loading = false}, () => this.loading = false);
+    this.userService.getSingle(this.userId).subscribe((res: RestObject) => {
+      this.restObject = res; this.changeTitel();
+      if (this.restObject.display('isContact') === "false") {
+        this.weFriends = false;
+      } else {
+        this.weFriends = true;
+      }
+    }, (err) => {console.log(err), this.loading = false}, () => this.loading = false);
   }
 
 }

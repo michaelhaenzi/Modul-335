@@ -11,7 +11,7 @@
     </div>
   </div>
   <p style="text-align: center;">{{restObject.display('status')}}</p>
-  <div *ngIf="restObject.has('isContact') && !restObject.display('isContact')" style="margin-top: 50px; width: 100%; height: 35px;" (click)="addContact()">
+  <div *ngIf="restObject.has('isContact') && !weFriends" style="margin-top: 50px; width: 100%; height: 35px;" (click)="addContact()">
     <div style="display: inline; width: 100px; float: left; height: 35px;">
 
     </div>
@@ -19,7 +19,7 @@
       Hinzufügen
     </div>
   </div>
-  <div *ngIf="restObject.has('chatId')" style="margin-top: 50px; width: 100%; height: 35px;" routerLink="/chats/{{restObject.display('chatId')}}">
+  <div *ngIf="restObject.has('chatId') && restObject.raw['chatId']" style="margin-top: 50px; width: 100%; height: 35px;" routerLink="/chats/{{restObject.display('chatId')}}">
     <div style="display: inline; width: 100px; float: left; height: 35px;">
 
     </div>
@@ -27,7 +27,7 @@
       Nachricht schreiben
     </div>
   </div>
-  <div *ngIf="!restObject.has('chatId')" style="margin-top: 50px; width: 100%; height: 35px;" routerLink="/chats/new/{{restObject.display('id')}}">
+  <div *ngIf="restObject.has('chatId') && !restObject.raw['chatId']" style="margin-top: 50px; width: 100%; height: 35px;" routerLink="/chats/new/{{restObject.display('id')}}">
     <div style="display: inline; width: 100px; float: left; height: 35px;">
 
     </div>
