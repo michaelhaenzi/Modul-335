@@ -90,7 +90,7 @@ $app->group('/api', function () use ($app) {
                 $notification = $request->getParam("notification");
                 $settingMapper = new SettingMapper($this->db, $this);
                 $settingMapper->update($userId, $notification);
-                $response = $response->withStatus(200);
+                $response = $response->withJson(new stdClass())->withStatus(200);
             } catch (Exception $exception) {
                 $this->logger->addError($exception);
                 $response = $response->withStatus(500);

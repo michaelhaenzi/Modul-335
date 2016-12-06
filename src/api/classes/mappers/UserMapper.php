@@ -52,6 +52,7 @@ class UserMapper extends Mapper {
             if ($id == $ownerId) {
                 return $user;
             } else {
+                $user->isContact = $this->areUsersInContact($ownerId, $id);
                 $sql = "SELECT u.chat_id
                 FROM user_chat u 
                 JOIN user_chat c on u.chat_id = c.chat_id 
@@ -77,7 +78,26 @@ class UserMapper extends Mapper {
         }
     }
 
-    public function  getUsers() {
+    public function areUsersInContact ($userId1, $userId2) {
+        $sql = "SELECT *
+        FROM contact
+        WHERE user_id1 = :userId1 AND user_id2 = :userId2";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute(["userId1" => $userId1, "userId2" => $userId2]);
+        $data = $stmt->fetch();
+
+        if ($result) {
+            if (empty($data)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public function getUsers() {
         $sql = "SELECT id, firstname, lastname, phonenumber, email, image_path, status, setting_id
                 FROM `user`";
         $stmt = $this->db->prepare($sql);

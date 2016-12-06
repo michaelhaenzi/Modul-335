@@ -83,7 +83,7 @@ class ChatMapper extends Mapper
     }
 
     public function getUserWithChatId ($userId, $chatId) {
-        $sql = "SELECT `user`.firstname, `user`.lastname, `user`.email, `user`.phonenumber, `user`.image_path, `user`.status
+        $sql = "SELECT `user`.id, `user`.firstname, `user`.lastname, `user`.email, `user`.phonenumber, `user`.image_path, `user`.status
         FROM user_chat LEFT JOIN `user` ON `user`.id = user_chat.user_id 
         WHERE chat_id = :chatId AND user_id != :userId";
         $stmt = $this->db->prepare($sql);
