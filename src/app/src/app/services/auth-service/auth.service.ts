@@ -47,6 +47,9 @@ export class AuthService {
     this.loggedIn = false;
   }
 
+    /**
+     * ändert die LocalStorage Daten
+     */
   public changeUserValues(): void {
       this.http.getSingle("user/" + localStorage.getItem("USER_ID")).subscribe((res: RestObject) => {
           if (res.has("firstname") && res.has("lastname")) {
