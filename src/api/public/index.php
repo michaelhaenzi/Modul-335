@@ -65,7 +65,7 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
     "rules" => [
         new \Slim\Middleware\JwtAuthentication\RequestPathRule([
             "path" => "/",
-            "passthrough" => ["/api/". VERSION ."/auth", "/api/". VERSION ."/register", "/api/" . VERSION . "/files/images"]
+            "passthrough" => ["/api/". VERSION ."/auth", "/api/". VERSION ."/register", "/api/" . VERSION . '/files/images/{data:\w+.\w+}']
         ]),
         new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
             "passthrough" => ["OPTIONS"]
