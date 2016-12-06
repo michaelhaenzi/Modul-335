@@ -17,6 +17,8 @@ npm install -g angular-cli
 This project uses XAMPP to provide a Webserver, go ahead and install [XAMPP].
 
 #####Usage
+Place the API folder under C:\www\335\src\api
+Place the Dist folder under C:\www\335\src\app
 Replace our host file and your httpd-vhosts.conf with [ours].
 The default path for your httpd-vhosts.conf file is:
 
