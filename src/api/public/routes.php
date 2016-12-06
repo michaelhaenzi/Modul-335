@@ -58,7 +58,7 @@ $app->group('/api', function () use ($app) {
                 }
 
                 $userMapper->update($userId, $requestBody);
-                $response = $response->withStatus(200);
+                $response = $response->withJson(new stdClass())->withStatus(200);
             } catch (\Slim\Exception\NotFoundException $exception) {
                 $this->logger->addInfo($exception);
                 $response = $response->withStatus(404);
@@ -76,6 +76,9 @@ $app->group('/api', function () use ($app) {
                 $settingMapper = new SettingMapper($this->db, $this);
                 $setting = $settingMapper->getSetting($userId);
                 $response = $response->withJson($setting)->withStatus(200);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
             } catch (Exception $exception) {
                 $this->logger->addError($exception);
                 $response = $response->withStatus(500);
@@ -91,6 +94,9 @@ $app->group('/api', function () use ($app) {
                 $settingMapper = new SettingMapper($this->db, $this);
                 $settingMapper->update($userId, $notification);
                 $response = $response->withJson(new stdClass())->withStatus(200);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
             } catch (Exception $exception) {
                 $this->logger->addError($exception);
                 $response = $response->withStatus(500);
@@ -106,6 +112,9 @@ $app->group('/api', function () use ($app) {
                 $contactMapper = new ContactMapper($this->db, $this);
                 $contacts = $contactMapper->getContacts($userId);
                 $response = $response->withJson($contacts)->withStatus(200);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
             } catch (Exception $exception) {
                 $this->logger->addError($exception);
                 $response = $response->withStatus(500);
@@ -126,7 +135,10 @@ $app->group('/api', function () use ($app) {
                 $contactMapper = new ContactMapper($this->db, $this);
                 $contactMapper->save($user1, $user2);
 
-                $response = $response->withStatus(200);
+                $response = $response->withJson(new stdClass())->withStatus(200);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
             } catch (Exception $exception) {
                 $this->logger->addCritical($exception);
                 $response = $response->withStatus(500);
@@ -141,6 +153,9 @@ $app->group('/api', function () use ($app) {
                 $chatMapper = new ChatMapper($this->db, $this);
                 $chats = $chatMapper->getChats($userId);
                 $response = $response->withJson($chats);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
             } catch (Exception $exception) {
                 $this->logger->addCritical($exception);
                 $response = $response->withStatus(500);
@@ -156,6 +171,9 @@ $app->group('/api', function () use ($app) {
                 $chatMapper = new ChatMapper($this->db, $this);
                 $chats = $chatMapper->getUserWithChatId($userId, $chatId);
                 $response = $response->withJson($chats);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
             } catch (Exception $exception) {
                 $this->logger->addCritical($exception);
                 $response = $response->withStatus(500);
@@ -170,6 +188,9 @@ $app->group('/api', function () use ($app) {
                 $chatMapper = new ChatMapper($this->db, $this);
                 $messages = $chatMapper->getChat($id);
                 $response = $response->withJson($messages);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
             } catch (Exception $exception) {
                 $this->logger->addCritical($exception);
                 $response = $response->withStatus(500);
@@ -187,6 +208,9 @@ $app->group('/api', function () use ($app) {
                 $chatId = $messageMapper->save($userId, $requestBody);
 
                 $response = $response->withJson($chatId)->withStatus(200);
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
             } catch (Exception $exception) {
                 $this->logger->addCritical($exception);
                 $response = $response->withStatus(500);
@@ -196,14 +220,23 @@ $app->group('/api', function () use ($app) {
         });
 
         $app->get('/files/image/{data:\w+.\w+}', function (Request $request, Response $response, $args) {
-            $data = $args['data'];
-            $image = @file_get_contents("../files/images/$data");
-            if ($image === FALSE) {
-                $handler = new \Slim\Exception\NotFoundException($request, $response);
-                return $handler;
+            try {
+                $data = $args['data'];
+                $image = @file_get_contents("../files/images/$data");
+                if ($image === FALSE) {
+                    $handler = new \Slim\Exception\NotFoundException($request, $response);
+                    return $handler;
+                }
+                $response = $response->write($image)->withHeader('Content-Type', 'image/*');
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
+            } catch (Exception $exception) {
+                $this->logger->addCritical($exception);
+                $response = $response->withStatus(500);
+            } finally {
+                return $response;
             }
-            $response->write($image);
-            return $response->withHeader('Content-Type', 'image/*');
         });
 
         $app->post('/auth', function (Request $request, Response $response) {
@@ -227,6 +260,9 @@ $app->group('/api', function () use ($app) {
                 $userMapper = new UserMapper($this->db, $this);
                 $userId = $userMapper->save($user, $settingId);
                 $response = $response->withJson(prepareResponseWithToken($userId, $ipaddress));
+            } catch (\Slim\Exception\NotFoundException $exception) {
+                $this->logger->addInfo($exception);
+                $response = $response->withStatus(404);
             } catch (Exception $exception) {
                 $this->logger->addCritical($exception);
                 $response = $response->withStatus(500);
