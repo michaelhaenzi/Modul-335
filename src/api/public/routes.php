@@ -219,7 +219,7 @@ $app->group('/api', function () use ($app) {
             }
         });
 
-        $app->get('/files/image/{data:\w+.\w+}', function (Request $request, Response $response, $args) {
+        $app->get('/files/images/{data:\w+.\w+}', function (Request $request, Response $response, $args) {
             try {
                 $data = $args['data'];
                 $image = @file_get_contents("../files/images/$data");

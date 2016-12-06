@@ -94,7 +94,7 @@ class ChatMapper extends Mapper
         if ($result && !is_bool($user)) {
             return $user;
         } else {
-            return null;
+            return new Exception("Not found");
         }
     }
 }
