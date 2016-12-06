@@ -106,6 +106,7 @@ class UserMapper extends Mapper {
         if ($result && !is_bool($data)) {
             $array = array();
             foreach ($data as $user) {
+                $user['password'] = "";
                 array_push($array, new UserEntity($user));
             }
             return $array;
