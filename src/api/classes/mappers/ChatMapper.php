@@ -50,7 +50,7 @@ class ChatMapper extends Mapper
                     $chat = new stdClass();
 
                     $chat->id = $chatId;
-                    $chat->partner = $userMapper->getUser($id, $partner["id"]);
+                    $chat->partner = $userMapper->getUser($id, $partner["user_id"]);
                     $chat->lastMessage = $messageResult;
                     $chats[] = new ChatListEntity($chat);
                 } else {

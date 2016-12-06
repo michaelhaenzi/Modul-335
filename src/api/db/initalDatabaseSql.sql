@@ -96,7 +96,7 @@ INSERT INTO `message` (`id`, `text`, `date`, `chat_id`, `user_id`) VALUES
 (2, 'Passt.', '2016-12-03 13:31:21', 1, 2),
 (3, 'Höh?', '2016-12-03 13:31:44', 1, 1),
 (4, 'Heey Joan Boii', '2016-12-03 13:30:56', 2, 1),
-(5, 'EEEEEEEEEEY HENSII, MA BOI. WAAT AP - FAM 2016', '2016-12-03 13:31:21', 2, 2),
+(5, 'EEEEEEEEEEY HENSII, MA BOI. WAAT AP - FAM 2016', '2016-12-03 13:31:21', 2, 3),
 (6, 'Höh?', '2016-12-03 13:31:44', 2, 1),
 (7, 'Hey Heeb hemmo husi uf MONTAG MORGEN?', '2016-12-03 13:30:56', 3, 2),
 (8, 'Frog de Flo, FAM', '2016-12-03 13:31:21', 3, 4),
