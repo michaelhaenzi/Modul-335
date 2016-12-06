@@ -49,12 +49,11 @@ $app->group('/api', function () use ($app) {
             try {
                 $userId = $this->jwt->userId;
                 $requestBody = $request->getParams();
-                var_dump($requestBody);
-                $files = $request->getUploadedFiles();
+
                 $userMapper = new UserMapper($this->db, $this);
 
-                if (!empty($files['profileImage'])) {
-                    $requestBody['image_path'] = FileHelper::setProfileImage($files);
+                if (!isset($requestBody["file"])) {
+                    $requestBody['image_path'] = DEFAULT_USER_IMAGE;
                 }
 
                 $userMapper->update($userId, $requestBody);

@@ -11,7 +11,7 @@ class FileHelper
     public static function setProfileImage($files)
     {
         $pathToFile = PROTOCOL . "://" . HOST . "/files/images/";
-        if (!empty($files['profileImage'])) {
+        if (!empty($files)) {
             /** @var Slim\Http\UploadedFile $thumbnail */
             $thumbnail = $files['profileImage'];
             preg_match("/(.*)\\/(.*)/", $thumbnail->getClientMediaType(), $fileMediaType);
