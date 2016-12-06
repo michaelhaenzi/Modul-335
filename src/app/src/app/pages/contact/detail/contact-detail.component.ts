@@ -30,7 +30,9 @@ export class ContactDetailComponent implements OnInit {
   }
 
   public addContact(): void {
-    //this.addServioce
+    this.userService.addContact({id: this.restObject.display('id')}).subscribe(() => {
+      this.restObject.raw['isContact'] = true;
+    });
   }
 
   public changeTitel(): void {

@@ -48,7 +48,7 @@ $app->add(function (Request $request, Response $response, callable $next) {
     return $response
         ->withHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
         ->withHeader('Access-Control-Allow-Headers', 'http://app.localhost http://localhost:4200 X-Requested-With, Content-Type, Accept, Origin, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', '*')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS')
         ->withHeader('Access-Control-Allow-Credentials', 'true')
         ->withHeader('Access-Control-Max-Age', '3600');
 });

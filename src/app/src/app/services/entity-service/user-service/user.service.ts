@@ -21,4 +21,8 @@ export class UserService extends EntityService implements EntityExtendsService {
     return this.http.getSingle("user" + "/" + id.toString());
   }
 
+  public addContact(body: any): Observable<RestObject> {
+    return this.http.postItem(this.MOUNTPOINT, body);
+  }
+
 }

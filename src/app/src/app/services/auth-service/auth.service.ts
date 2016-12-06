@@ -60,7 +60,13 @@ export class AuthService {
             if (json.hasOwnProperty("Authorization") && json.hasOwnProperty("userId")) {
               localStorage.setItem("TOKEN", json["Authorization"]);
               localStorage.setItem("USER_ID", json["userId"]);
-              resolve();
+                this.http.getSingle("user/" + json["userId"]).subscribe((res: RestObject) => {
+                    if (res.has("firstname") && res.has("lastname")) {
+                        localStorage.setItem("FIRSTNAME", res.display("firstname"));
+                        localStorage.setItem("LASTNAME", res.display("lastname"));
+                        resolve();
+                    }
+                });
             } else {
               reject();
             }
@@ -82,7 +88,14 @@ export class AuthService {
             if (res.has("Authorization") && res.has("userId")) {
               localStorage.setItem("TOKEN", res.display("Authorization"));
               localStorage.setItem("USER_ID", res.display("userId"));
-              resolve();
+              console.log("blyat");
+              this.http.getSingle("user/" + res.display("userId")).subscribe((res: RestObject) => {
+                  if (res.has("firstname") && res.has("lastname")) {
+                      localStorage.setItem("FIRSTNAME", res.display("firstname"));
+                      localStorage.setItem("LASTNAME", res.display("lastname"));
+                      resolve();
+                  }
+              });
             } else {
               reject();
             }

@@ -20,13 +20,13 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.eventsService.trigger("route:back", false, "", "Einstellungen", false);
-    this.settingsService.getSingle(parseInt(localStorage.getItem("USER_ID"))).subscribe((res: RestObject) => {
-      this.messageMe = JSON.parse(res.display('messageMe'));
+    this.settingsService.get().subscribe((res: RestObject) => {
+      this.messageMe = JSON.parse(res.display('notification'));
     })
   }
 
   public saveSettings(): void {
-    this.settingsService.putItem(parseInt(localStorage.getItem("USER_ID")), {messageMe: this.messageMe}).subscribe();
+    this.settingsService.put({notification: this.messageMe}).subscribe();
   }
 
 }
