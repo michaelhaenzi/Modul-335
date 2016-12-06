@@ -20,4 +20,4 @@ define('MYSQL_DB', 'horizon');
 define('PROTOCOL', 'http');
 define('HOST', 'api.localhost');
 
-define('DEFAULT_USER_IMAGE', PROTOCOL . "://" . HOST . "/files/images/default_user.png");
+define('DEFAULT_USER_IMAGE', PROTOCOL . "://" . HOST . "/api/" . VERSION . "/files/images/default_user.png");
