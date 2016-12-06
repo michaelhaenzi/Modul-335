@@ -1,16 +1,16 @@
 <div *ngIf="restObject.length != 0 && !loading">
-  <div style="width: calc(100% - 30px); display: block; padding: 55px 15px;">
+  <div class="horizon-chat-detail-row">
     <div *ngFor="let message of restObject.items" class="horizon-chat-row-message">
       <span [ngClass]="{'horizon-chat-row-message-me': message.display('userId') == userId, 'horizon-chat-row-message-partner': message.display('userId') != userId}">{{message.display('text')}}</span>
     </div>
   </div>
 </div>
 <div *ngIf="restObject.length == 0 && !loading">
-  <div style="width: calc(100% - 30px); display: block; padding: 55px 15px;">
+  <div class="horizon-no-messages">
     <h4 style="text-align: center;">Keine Nachrichten gefunden</h4>
   </div>
 </div>
-<div style="position: fixed; bottom: 0; height: 48px; border-top: 1px solid #c7c7c7; display: block; width: 100%;">
-  <input type="text" style="border: 0; height: 18px; float: left; padding: 15px 25px; width: calc(100% - 150px); font-size: 16px;" placeholder="Nachricht" [(ngModel)]="message">
+<div class="horizon-message-input">
+  <input type="text" class="horizon-message-input-field" placeholder="Nachricht" [(ngModel)]="message">
   <button (click)="sendMessage()" style="width: 99px; height: 48px; border: 0; float: right; border-left: 1px solid #c7c7c7; background-color: white; font-size: 16px;">Senden</button>
 </div>

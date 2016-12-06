@@ -1,7 +1,7 @@
 <div class="horizon-contact-form-row">
     <div style="width: 100%; max-width: 300px; height: 175px; margin-left: auto; margin-right: auto;">
-      <img *ngIf="!file" style="margin-left: auto; margin-right: auto; display: block; height: 100px; width: 100px; padding: 3%; border-radius: 50%;" src="{{profile_image}}">
-      <img *ngIf="file" style="margin-left: auto; margin-right: auto; display: block; height: 100px; width: 100px; padding: 3%; border-radius: 50%;" src="{{file}}">
+      <img *ngIf="!file" class="horizon-contact-form-image" src="{{profile_image}}">
+      <img *ngIf="file" class="horizon-contact-form-image" src="{{file}}">
       <label for="fileInput" class="horizon-contact-form-submit" type="submit">Ändern</label>
       <input (change)="changeImage($event)" type="file" id="fileInput" style="display: none;" name="fileInput">
     </div>

@@ -7,3 +7,15 @@
 .horizon-chat-row-message-me {
     float: right; max-width: 75%; line-break: auto; background-color: #f1424b; padding: 4px 10px; color: white; border-radius: 8px; border-bottom-right-radius: 1px;
 }
+.horizon-chat-detail-row {
+    width: calc(100% - 30px); display: block; padding: 55px 15px;
+}
+.horizon-no-messages {
+    width: calc(100% - 30px); display: block; padding: 55px 15px;
+}
+.horizon-message-input {
+    position: fixed; bottom: 0; height: 48px; border-top: 1px solid #c7c7c7; display: block; width: 100%;
+}
+.horizon-message-input-field {
+    border: 0; height: 18px; float: left; padding: 15px 25px; width: calc(100% - 150px); font-size: 16px;
+}

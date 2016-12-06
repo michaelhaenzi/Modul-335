@@ -4,3 +4,15 @@
     display: block;
     padding: 50px 0px;
 }
+.horizon-contact-detail-field {
+    height: 25px; width: 100%; display: block; line-height: 25px;
+}
+.horizon-contact-detail-fieldrow {
+    display: inline; width: calc(100% - 100px); float: right; height: 100px; border-bottom: 1px solid #c7c7c7;
+}
+.horizon-contact-detail-icon-space {
+    display: inline; width: 100px; float: left; height: 35px;
+}
+.horizon-contact-detail-add-row {
+    display: inline; width: calc(100% - 120px); float: right; height: 35px; border-bottom: 1px solid #c7c7c7; border-top: 1px solid #c7c7c7; line-height: 35px; padding: 0px 10px
+}

@@ -47,6 +47,19 @@ export class AuthService {
     this.loggedIn = false;
   }
 
+  public changeUserValues(): void {
+      this.http.getSingle("user/" + localStorage.getItem("USER_ID")).subscribe((res: RestObject) => {
+          if (res.has("firstname") && res.has("lastname")) {
+              localStorage.setItem("FIRSTNAME", res.display("firstname"));
+              localStorage.setItem("LASTNAME", res.display("lastname"));
+              localStorage.setItem("FILEPATH", res.display("file_path"));
+              localStorage.setItem("PHONENUMBER", res.display("phonenumber"));
+              localStorage.setItem("EMAIL", res.display("email"));
+              localStorage.setItem("STATUS", res.display("status"));
+          }
+      });
+  }
+
   /**
    * Führt einen REST Login aus
    *

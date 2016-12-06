@@ -7,3 +7,18 @@
 h4 {
     margin: 0;
 }
+.horizon-chat-list-row {
+    height: 100%; width: 60px; display: inline-block; float: left; margin-right: 10px;
+}
+.horizon-chat-list-image {
+    height: 80%; width: 80%; padding: 10%; border-radius: 50%;
+}
+.horizon-chat-list-username-wrap {
+    display: inline-block; height: 59px; width: calc(100% - 120px); border-bottom: 1px solid #c7c7c7;
+}
+.horizon-chat-list-icon-space {
+    display: inline-block; float: right; height: 59px; width: 40px; padding-left: 10px; border-bottom: 1px solid #c7c7c7;
+}
+.horizon-chat-list-icon {
+    font-size: 26px; height: 100%; width: 100%; text-align: center; line-height: 60px;
+}

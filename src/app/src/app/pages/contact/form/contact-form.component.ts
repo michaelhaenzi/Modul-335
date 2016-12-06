@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CustomHttpService} from "../../../services/custom-http-service/custom-http.service";
 import {RestObject} from "../../../class/rest-object";
 import {Router} from "@angular/router";
+import {AuthService} from "../../../services/auth-service/auth.service";
 
 @Component({
   selector: 'app-contact-form',
@@ -18,14 +19,15 @@ export class ContactFormComponent implements OnInit {
   public profile_image: string = localStorage.getItem("FILEPATH");
   public file: string = null;
 
-  constructor(private http: CustomHttpService, private router: Router) { }
+  constructor(private http: CustomHttpService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
 
   }
 
   public updateContact(): void {
-    this.http.postItem("user", {firstname: this.firstname, lastname: this.lastname, email: this.email, phonenumber: this.phonenumber, status: this.status, file: this.file}).subscribe((res: RestObject) => {
+    this.http.postItem("user", {firstname: this.firstname, lastname: this.lastname, email: this.email, phonenumber: this.phonenumber, status: this.status}).subscribe((res: RestObject) => {
+      this.authService.changeUserValues();
       this.router.navigateByUrl("/settings");
     });
   }

@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   /**
    * Konstruktor
    */
-  constructor(private loginService: LoginService, private router: Router, private eventsService: EventsService, private httpContext: CustomHttpContextService) { }
+  constructor(private loginService: LoginService, private eventsService: EventsService, private httpContext: CustomHttpContextService) { }
 
   ngOnInit(): void {
 
@@ -34,14 +34,14 @@ export class LoginComponent implements OnInit {
   public doLogin(): void {
     if(this.login.trim() == "" || this.password.trim() == "") {
       this.loginError.error = true;
-      this.loginError.message = "Bitte Formular ausfüllen.";
+      this.loginError.message = "Bitte Username / Passwort eingeben.";
     } else {
       this.loginService.doLogin({login: this.login, password: this.password}).then((res: any) => {
         this.eventsService.trigger("auth:login");
       }).catch((err) => {
         console.log("Error: ", err);
         this.loginError.error = true;
-        this.loginError.message = "Fehler beim anmelden.";
+        this.loginError.message = "Username / Passwort nicht korrekt.";
       });
     }
   }

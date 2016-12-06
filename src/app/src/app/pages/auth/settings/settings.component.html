@@ -2,23 +2,23 @@
   <h3 *ngIf="chat.has('id')">{{chat.display('id')}}</h3>
 </div-->
 <div class="horizon-settings-page" style="padding: 50px 0px;">
-  <div style="width: 100%; height: 150px;">
-    <img style="margin-left: auto; margin-right: auto; display: block; height: 100px; width: 100px; padding: 3%; border-radius: 50%;" src="{{profile_image}}" >
-    <h4 style="text-align: center; margin: 0;">{{username}}</h4>
+  <div class="horizon-settings-warpup">
+    <img class="horizon-settings-image" src="{{profile_image}}" >
+    <h4 class="horizon-settings-username">{{username}}</h4>
   </div>
-  <div style="margin-top: 50px; width: 100%; height: 35px;" routerLink="/form/contacts">
-    <div style="display: inline; width: 40px; float: left; height: 35px;">
+  <div class="horizon-change-contact" routerLink="/form/contacts">
+    <div class="horizon-settings-icon-space">
 
     </div>
-    <div style="display: inline; width: calc(100% - 60px); float: right; height: 35px; border-bottom: 1px solid #c7c7c7; border-top: 1px solid #c7c7c7; line-height: 35px; display: block; padding: 0px 10px">
+    <div class="horizon-settings-change-contact">
       Kontakt bearbeiten
     </div>
   </div>
   <div style="width: 100%; height: 35px; display: block;">
-    <div style="display: inline; width: 40px; float: left; height: 35px;">
+    <div class="horizon-settings-icon-space">
 
     </div>
-    <div style="display: inline-block; width: calc(100% - 110px); height: 35px; border-bottom: 1px solid #c7c7c7; line-height: 35px; padding: 0px 10px;">
+    <div class="horizon-settings-notification-settings">
       Benachrichtigung
     </div>
     <div style="display: inline; width: 30px; float: right; height: 35px; border-bottom: 1px solid #c7c7c7; line-height: 35px; padding: 0px 10px">
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div style="margin-top: 50px; width: 100%; height: 35px;" (click)="saveSettings()">
-    <div style="display: inline; width: 40px; float: left; height: 35px;">
+    <div class="horizon-settings-icon-space">
 
     </div>
     <div style="display: inline; width: calc(100% - 60px); float: right; height: 35px; border-bottom: 1px solid #c7c7c7; border-top: 1px solid #c7c7c7; line-height: 35px; display: block; padding: 0px 10px">

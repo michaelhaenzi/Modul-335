@@ -3,35 +3,35 @@
     <div style="display: inline; width: 100px; float: left; height: 100px;">
       <img style="height: 80%; width: 80%; padding: 10%; border-radius: 50%;" src="{{restObject.display('file_path')}}" >
     </div>
-    <div style="display: inline; width: calc(100% - 100px); float: right; height: 100px; border-bottom: 1px solid #c7c7c7;">
-      <span style="height: 25px; width: 100%; display: block; line-height: 25px;">{{restObject.display('lastname')}}</span>
-      <span style="height: 25px; width: 100%; display: block; line-height: 25px;">{{restObject.display('firstname')}}</span>
-      <span style="height: 25px; width: 100%; display: block; line-height: 25px;">{{restObject.display('email')}}</span>
-      <span style="height: 25px; width: 100%; display: block; line-height: 25px;">{{restObject.display('phonenumber')}}</span>
+    <div class="horizon-contact-detail-fieldrow">
+      <span class="horizon-contact-detail-field">{{restObject.display('lastname')}}</span>
+      <span class="horizon-contact-detail-field">{{restObject.display('firstname')}}</span>
+      <span class="horizon-contact-detail-field">{{restObject.display('email')}}</span>
+      <span class="horizon-contact-detail-field">{{restObject.display('phonenumber')}}</span>
     </div>
   </div>
-  <p style="text-align: center;">{{restObject.display('status')}}</p>
+  <p style="text-align: center; font-size: 12px;">{{restObject.display('status')}}</p>
   <div *ngIf="restObject.has('isContact') && !weFriends" style="margin-top: 50px; width: 100%; height: 35px;" (click)="addContact()">
-    <div style="display: inline; width: 100px; float: left; height: 35px;">
+    <div class="horizon-contact-detail-icon-space">
 
     </div>
-    <div style="display: inline; width: calc(100% - 120px); float: right; height: 35px; border-bottom: 1px solid #c7c7c7; border-top: 1px solid #c7c7c7; line-height: 35px; padding: 0px 10px">
+    <div class="horizon-contact-detail-add-row">
       Hinzufügen
     </div>
   </div>
   <div *ngIf="restObject.has('chatId') && restObject.raw['chatId']" style="margin-top: 50px; width: 100%; height: 35px;" routerLink="/chats/{{restObject.display('chatId')}}">
-    <div style="display: inline; width: 100px; float: left; height: 35px;">
+    <div class="horizon-contact-detail-icon-space">
 
     </div>
-    <div style="display: inline; width: calc(100% - 120px); float: right; height: 35px; border-bottom: 1px solid #c7c7c7; border-top: 1px solid #c7c7c7; line-height: 35px; padding: 0px 10px">
+    <div class="horizon-contact-detail-add-row">
       Nachricht schreiben
     </div>
   </div>
   <div *ngIf="restObject.has('chatId') && !restObject.raw['chatId']" style="margin-top: 50px; width: 100%; height: 35px;" routerLink="/chats/new/{{restObject.display('id')}}">
-    <div style="display: inline; width: 100px; float: left; height: 35px;">
+    <div class="horizon-contact-detail-icon-space">
 
     </div>
-    <div style="display: inline; width: calc(100% - 120px); float: right; height: 35px; border-bottom: 1px solid #c7c7c7; border-top: 1px solid #c7c7c7; line-height: 35px; padding: 0px 10px">
+    <div class="horizon-contact-detail-add-row">
       Nachricht schreiben
     </div>
   </div>
